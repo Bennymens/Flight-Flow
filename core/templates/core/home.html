@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flight-Flow | Home</title>
+    {% load static %}
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            margin: 0;
+            padding: 0;
+            background: #F5F7FA; /* Off-White */
+            color: #1A1A1A;      /* Charcoal Grey */
+        }
+        nav {
+            background: linear-gradient(90deg, #F5F7FA 80%, #e0f7fa 100%);
+            border-bottom: 2px solid #028A9E;
+            box-shadow: 0 2px 12px rgba(2,138,158,0.08);
+            border-radius: 0 0 18px 18px;
+            overflow: hidden;
+        }
+        .navbar-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2em;
+            width: 100%;
+            height: 70px;
+        }
+        .logo img {
+            max-height: 60px;
+            width: auto;
+            display: block;
+            filter: drop-shadow(0 2px 8px rgba(2,138,158,0.10));
+        }
+        .nav-links {
+            margin-left: auto;
+        }
+        .nav-links ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .nav-links ul li {
+            margin: 0 1em;
+        }
+        .nav-links ul li a {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            color: #028A9E;
+            text-decoration: none;
+            font-size: 0.95em;
+            padding: 0.3em 1em;
+            border-radius: 20px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .nav-links ul li a:hover {
+            background: #028A9E;
+            color: #fff;
+        }
+        .container {
+            width: 100vw;
+            max-width: 100vw;
+            margin: 0;
+            padding: 2em 0;
+            text-align: center;
+            position: relative;
+            min-height: 600px;   /* Increased from 350px to 500px */
+            z-index: 1;
+            overflow: hidden;
+            border-radius: 0;
+        }
+        .hero-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 3.7em;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+            color: #f5f5f5; /* Sky Teal */
+        }
+        .subtitle {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.3em;
+            color: #f1f1f1; /* Charcoal Grey */
+            margin-bottom: 2em;
+        }
+        .body-text {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            font-size: 1.1em;
+            color: #1A1A1A; /* Charcoal Grey */
+            margin-bottom: 2em;
+        }
+        .cta-btn {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 1.1em;
+            background: #028A9E; /* Sky Teal */
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 0.8em 2em;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            box-shadow: 0 2px 8px rgba(2,138,158,0.08);
+            margin-top: 1em;
+            border-bottom: 3px solid #F7C948; /* Gold Accent underline */
+        }
+        .cta-btn:hover {
+            background: #F7C948; /* Gold Accent */
+            color: #028A9E;      /* Sky Teal */
+        }
+        .country-selector {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            font-size: 1em;
+            color: #1A1A1A; /* Charcoal Grey */
+            margin-left: auto;
+            margin-right: 1em;
+        }
+        .slideshow-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            width: 100vw;
+            height: 100%;
+            z-index: 0;
+        }
+        .slide {
+            position: absolute;
+            width: 100vw;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s;
+            left: 0;
+            top: 0;
+        }
+        .slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            color: #fff;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+            padding-top: 2em;
+        }
+        .flight-search-form {
+            margin: 2em auto 0 auto;
+            background: rgba(255,255,255,0.92);
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(2,138,158,0.08);
+            padding: 1.2em 1em;
+            max-width: 900px;
+            position: relative;
+            z-index: 5;
+        }
+        .flight-search-form .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1em;
+            justify-content: center;
+            align-items: center;
+        }
+        .flight-search-form input,
+        .flight-search-form select {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1em;
+            padding: 0.5em 1em;
+            border: 1px solid #d9d9d9;
+            border-radius: 8px;
+            outline: none;
+            min-width: 120px;
+            background: #f5f7fa;
+            color: #028A9E;
+            transition: border 0.2s;
+        }
+        .flight-search-form input:focus,
+        .flight-search-form select:focus {
+            border: 1.5px solid #028A9E;
+        }
+        .flight-search-form button.cta-btn {
+            padding: 0.6em 1.5em;
+            font-size: 1em;
+            border-radius: 8px;
+            margin-left: 0.5em;
+        }
+        .dropdown-menu {
+    z-index: 1055 !important; /* higher than .container and slideshow */
+}
+        @media (max-width: 700px) {
+            .navbar-container {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0 1em;
+                height: auto;
+            }
+            .logo {
+                font-size: 1.5em;
+                margin-bottom: 0.5em;
+            }
+            .nav-links {
+                width: 100%;
+                margin-left: 0;
+            }
+            .nav-links ul {
+                width: 100%;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+            }
+            .nav-links ul li {
+                margin: 0 0.7em 0.5em 0;
+            }
+            .container {
+                padding: 1em 0.5em;
+            }
+            .hero-title {
+                font-size: 1.5em;
+            }
+            .subtitle {
+                font-size: 1em;
+            }
+            .flight-search-form {
+                padding: 1em 0.5em;
+            }
+        }
+        @media (max-width: 900px) {
+    .flight-search-form .form-row {
+        flex-direction: column;
+        gap: 0.7em;
+        align-items: stretch;
+    }
+    .flight-search-form {
+        padding: 1em 0.5em;
+    }
+}
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="navbar-container">
+            <span class="logo">
+                <img src="{% static 'core/img/WhatsApp_Image_2025-06-19_at_11.15.24_815a1b9d-removebg-preview.png' %}" 
+                     alt="Flight-Flow Logo"
+                     style="max-height: 120px; width: auto; display: block;">
+            </span>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'flights' %}">Flights</a></li>
+                    <li><a href="{% url 'about_us' %}">About Us</a></li>
+                    <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                </ul>
+            </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="slideshow-bg">
+            <img src="{% static 'core/img/airplane-sunset.jpg' %}" class="slide active">
+            <img src="{% static 'core/img/plane-airport-sunset.jpg' %}" class="slide">
+            <img src="{% static 'core/img/planes-runway-modern-airport.jpg' %}" class="slide">
+        </div>
+        <div class="slide-content">
+            <h1 class="hero-title">Connecting Africa, One Flight at a Time</h1>
+            <div class="subtitle">Your trusted Gateway to discover, compare, and book flights across Africa - Seamlessly.</div>
+        </div>
+        <div class="flight-search-form">
+    <form method="get" action="{% url 'flights' %}">
+        <div class="form-row">
+            <div class="btn-group me-2" style="min-width: 140px;">
+  <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="tripTypeBtn">
+    Round Trip
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#" onclick="setTripType('Round Trip', 'round_trip')">Round Trip</a></li>
+    <li><a class="dropdown-item" href="#" onclick="setTripType('One-way', 'one_way')">One-way</a></li>
+    <li><a class="dropdown-item" href="#" onclick="setTripType('Multi-city', 'multi_city')">Multi-city</a></li>
+  </ul>
+  <input type="hidden" name="trip_type" id="tripTypeInput" value="round_trip">
+</div>
+            <input type="text" name="from" placeholder="From" required>
+            <input type="text" name="to" placeholder="To" required>
+            <input type="date" name="departure" placeholder="Departure Date" required>
+            <input type="date" name="return" placeholder="Return Date">
+            <div class="btn-group dropup me-2" style="min-width: 180px;" data-bs-auto-close="outside">
+  <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="passengerBtn">
+    Passengers: 1
+  </button>
+  <div class="dropdown-menu p-3" style="min-width: 260px;" data-bs-auto-close="outside" onclick="event.stopPropagation();">
+    <div class="mb-2 fw-bold">Passengers</div>
+    <div id="passengerList">
+      <div class="accordion" id="passengerAccordion">
+        <!-- Passenger accordion items go here -->
+      </div>
+    </div>
+    <button type="button" class="btn btn-sm btn-outline-primary w-100" onclick="addPassenger()">+ Add Passenger</button>
+    <input type="hidden" name="passenger_count" id="passenger_count" value="1">
+  </div>
+</div>
+            <div class="btn-group me-2" style="min-width: 140px;">
+  <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="classBtn">
+    Class
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#" onclick="setClass('Economy', 'economy')">Economy</a></li>
+    <li><a class="dropdown-item" href="#" onclick="setClass('Premium Economy', 'premium_economy')">Premium Economy</a></li>
+    <li><a class="dropdown-item" href="#" onclick="setClass('Business', 'business')">Business</a></li>
+    <li><a class="dropdown-item" href="#" onclick="setClass('First Class', 'first')">First Class</a></li>
+  </ul>
+  <input type="hidden" name="class" id="classInput" value="">
+</div>
+            <button type="submit" class="cta-btn" style="margin:0;">Search</button>
+        </div>
+    </form>
+</div>
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    let slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+    setInterval(() => {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+    }, 4000); // Change image every 4 seconds
+});
+
+function setTripType(label, value) {
+    document.getElementById('tripTypeBtn').textContent = label;
+    document.getElementById('tripTypeInput').value = value;
+}
+
+function setClass(label, value) {
+    document.getElementById('classBtn').textContent = label;
+    document.getElementById('classInput').value = value;
+}
+
+let passengerCount = 1;
+
+function updatePassengerType(num, value) {
+    document.getElementById(`passenger${num}_type`).value = value;
+    updatePassengerBtn();
+}
+
+function addPassenger() {
+    passengerCount++;
+    const passengerAccordion = document.getElementById('passengerAccordion');
+    const newAccordion = document.createElement('div');
+    newAccordion.className = 'accordion-item';
+    newAccordion.innerHTML = `
+      <h2 class="accordion-header" id="heading${passengerCount}">
+        <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${passengerCount}" aria-expanded="false" aria-controls="collapse${passengerCount}">
+          Passenger ${passengerCount}
+        </button>
+      </h2>
+      <div id="collapse${passengerCount}" class="accordion-collapse collapse" aria-labelledby="heading${passengerCount}" data-bs-parent="#passengerAccordion">
+        <div class="accordion-body p-2">
+          <label class="form-label mb-1">Type</label>
+          <select class="form-select mb-2" onchange="updatePassengerTypeAndAge(${passengerCount}, this.value)">
+            <option value="adult" selected>Adult</option>
+            <option value="child">Child</option>
+            <option value="infant">Infant</option>
+          </select>
+          <label class="form-label mb-1">Age Range</label>
+          <select class="form-select" id="passenger${passengerCount}_age">
+            <option value="18-64">18-64</option>
+            <option value="65+">65+</option>
+          </select>
+          <input type="hidden" name="passenger${passengerCount}_type" id="passenger${passengerCount}_type" value="adult">
+          <input type="hidden" name="passenger${passengerCount}_age_value" id="passenger${passengerCount}_age_value" value="18-64">
+        </div>
+      </div>
+    `;
+    passengerAccordion.appendChild(newAccordion);
+    document.getElementById('passenger_count').value = passengerCount;
+    updatePassengerBtn();
+}
+
+function updatePassengerTypeAndAge(num, value) {
+    document.getElementById(`passenger${num}_type`).value = value;
+    let ageSelect = document.getElementById(`passenger${num}_age`);
+    let ageValue = document.getElementById(`passenger${num}_age_value`);
+    let options = "";
+
+    if (value === "adult") {
+        options = `<option value="18-64">18-64</option>
+                   <option value="65+">65+</option>`;
+        ageValue.value = "18-64";
+    } else if (value === "child") {
+        options = `<option value="2-11">2-11</option>
+                   <option value="12-17">12-17</option>`;
+        ageValue.value = "2-11";
+    } else if (value === "infant") {
+        options = `<option value="0-1">0-1</option>`;
+        ageValue.value = "0-1";
+    }
+    ageSelect.innerHTML = options;
+    updatePassengerBtn();
+}
+
+// Also update the age value when the age select changes
+document.addEventListener('change', function(e) {
+    if (e.target && e.target.id && e.target.id.includes('_age')) {
+        let num = e.target.id.match(/\d+/)[0];
+        document.getElementById(`passenger${num}_age_value`).value = e.target.value;
+    }
+});
+
+function updatePassengerBtn() {
+    let types = [];
+    for (let i = 1; i <= passengerCount; i++) {
+        let type = document.getElementById(`passenger${i}_type`).value;
+        types.push(type.charAt(0).toUpperCase() + type.slice(1));
+    }
+    document.getElementById('passengerBtn').textContent = 'Passengers: ' + passengerCount;
+}
+    </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
