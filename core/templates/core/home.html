@@ -6,6 +6,9 @@
     <!-- Google Fonts: Poppins -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
+    <link rel="icon" type="image/x-icon" href="{% static 'core/img/favicon.ico' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
@@ -174,21 +177,24 @@
         }
         .flight-search-form input,
         .flight-search-form select {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1em;
-            padding: 0.5em 1em;
-            border: 1px solid #d9d9d9;
+            border: 2px solid #028A9E !important;   /* Thinner border */
             border-radius: 8px;
-            outline: none;
-            min-width: 120px;
+            padding: 0.6em 1.5em;                   /* Match dropdown button padding */
+            font-size: 1em;
+            height: 44px;                           /* Match Bootstrap button height */
             background: #f5f7fa;
             color: #028A9E;
+            outline: none;
             transition: border 0.2s;
+            box-sizing: border-box;
         }
+
         .flight-search-form input:focus,
         .flight-search-form select:focus {
-            border: 1.5px solid #028A9E;
+            border: 2.5px solid #028A9E !important;
+            box-shadow: 0 0 0 2px #028A9E22;
         }
+
         .flight-search-form button.cta-btn {
             padding: 0.6em 1.5em;
             font-size: 1em;
@@ -198,11 +204,32 @@
         .dropdown-menu {
     z-index: 1055 !important; /* higher than .container and slideshow */
 }
+        /* Remove border from dropdown buttons */
+.btn-outline-primary.dropdown-toggle {
+    border: 2px solid #028A9E !important;
+    box-shadow: none !important;
+    color: #028A9E !important;
+}
+
+.btn-outline-primary.dropdown-toggle::after {
+    color: #028A9E !important;
+    filter: none !important; /* Remove Bootstrap's default filter */
+    opacity: 1 !important;
+}
+
+.btn-outline-primary.dropdown-toggle:hover,
+.btn-outline-primary.dropdown-toggle:focus,
+.btn-outline-primary.dropdown-toggle:active {
+    background-color: #f5f7fa !important;
+    color: #028A9E !important;
+    border-color: #028A9E !important;
+    box-shadow: none !important;
+}
         @media (max-width: 700px) {
             .navbar-container {
                 flex-direction: column;
                 align-items: flex-start;
-                padding: 0 1em;
+                padding: 0 em;
                 height: auto;
             }
             .logo {
@@ -290,22 +317,35 @@
   </ul>
   <input type="hidden" name="trip_type" id="tripTypeInput" value="round_trip">
 </div>
-            <input type="text" name="from" placeholder="From" required>
-            <input type="text" name="to" placeholder="To" required>
+            <div class="input-group mb-2" style="max-width:220px;">
+  <span class="input-group-text bg-white border-0" style="color:#000000;">
+    <i class="ri-flight-takeoff-line"></i>
+  </span>
+  <input type="text" name="from" class="form-control" placeholder="Departing from" required>
+</div>
+<div class="input-group mb-2" style="max-width:220px;">
+  <span class="input-group-text bg-white border-0" style="color:#0c0c0c;">
+    <i class="ri-flight-land-fill"></i>
+  </span>
+  <input type="text" name="to" class="form-control" placeholder="Arriving at" required>
+</div>
             <input type="date" name="departure" placeholder="Departure Date" required>
             <input type="date" name="return" placeholder="Return Date">
             <div class="btn-group dropup me-2" style="min-width: 180px;" data-bs-auto-close="outside">
   <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="passengerBtn">
-    Passengers: 1
+    Passengers
   </button>
-  <div class="dropdown-menu p-3" style="min-width: 260px;" data-bs-auto-close="outside" onclick="event.stopPropagation();">
-    <div class="mb-2 fw-bold">Passengers</div>
+  <div class="dropdown-menu p-3" style="min-width: 300px;" onclick="event.stopPropagation();">
+    <div class="mb-2 fw-bold" id="passengerMenuTitle">Passengers (1)</div>
     <div id="passengerList">
       <div class="accordion" id="passengerAccordion">
         <!-- Passenger accordion items go here -->
       </div>
     </div>
-    <button type="button" class="btn btn-sm btn-outline-primary w-100" onclick="addPassenger()">+ Add Passenger</button>
+    <button type="button" class="btn btn-sm btn-outline-primary w-100 mt-2" onclick="addPassenger()">+ Add Passenger</button>
+    <div class="d-flex justify-content-start mt-3">
+      <button type="button" class="btn btn-primary" onclick="closePassengerDropdown()">Continue</button>
+    </div>
     <input type="hidden" name="passenger_count" id="passenger_count" value="1">
   </div>
 </div>
@@ -349,82 +389,101 @@ function setClass(label, value) {
 
 let passengerCount = 1;
 
-function updatePassengerType(num, value) {
-    document.getElementById(`passenger${num}_type`).value = value;
-    updatePassengerBtn();
+function updatePassengerBtn() {
+    const btn = document.getElementById('passengerBtn');
+    btn.textContent = `Passengers${passengerCount > 1 ? ' (' + passengerCount + ')' : ''}`;
+    document.getElementById('passengerMenuTitle').textContent = `Passengers (${passengerCount})`;
 }
 
 function addPassenger() {
     passengerCount++;
+    createPassengerAccordion(passengerCount);
+    document.getElementById('passenger_count').value = passengerCount;
+    updatePassengerBtn();
+}
+
+function createPassengerAccordion(num) {
     const passengerAccordion = document.getElementById('passengerAccordion');
     const newAccordion = document.createElement('div');
-    newAccordion.className = 'accordion-item';
+    newAccordion.className = 'accordion-item mb-2';
+    newAccordion.id = `passengerItem${num}`;
     newAccordion.innerHTML = `
-      <h2 class="accordion-header" id="heading${passengerCount}">
-        <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${passengerCount}" aria-expanded="false" aria-controls="collapse${passengerCount}">
-          Passenger ${passengerCount}
+      <h2 class="accordion-header d-flex align-items-center" id="heading${num}">
+        <button class="accordion-button collapsed py-2 px-3 flex-grow-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${num}" aria-expanded="false" aria-controls="collapse${num}">
+          Passenger ${num}
         </button>
+        ${num > 1 ? `
+        <span title="Remove" onclick="removePassenger(${num})" style="cursor:pointer; margin-left:4px; opacity:0.5; font-size:0.60em; line-height:1;">
+          &#10005;
+        </span>
+        ` : ''}
       </h2>
-      <div id="collapse${passengerCount}" class="accordion-collapse collapse" aria-labelledby="heading${passengerCount}" data-bs-parent="#passengerAccordion">
+      <div id="collapse${num}" class="accordion-collapse collapse" aria-labelledby="heading${num}" data-bs-parent="#passengerAccordion">
         <div class="accordion-body p-2">
           <label class="form-label mb-1">Type</label>
-          <select class="form-select mb-2" onchange="updatePassengerTypeAndAge(${passengerCount}, this.value)">
+          <select class="form-select mb-2" onchange="updatePassengerType(${num}, this.value)">
             <option value="adult" selected>Adult</option>
             <option value="child">Child</option>
             <option value="infant">Infant</option>
           </select>
           <label class="form-label mb-1">Age Range</label>
-          <select class="form-select" id="passenger${passengerCount}_age">
+          <select class="form-select" id="passenger${num}_age">
             <option value="18-64">18-64</option>
             <option value="65+">65+</option>
           </select>
-          <input type="hidden" name="passenger${passengerCount}_type" id="passenger${passengerCount}_type" value="adult">
-          <input type="hidden" name="passenger${passengerCount}_age_value" id="passenger${passengerCount}_age_value" value="18-64">
+          <input type="hidden" name="passenger${num}_type" id="passenger${num}_type" value="adult">
+          <input type="hidden" name="passenger${num}_age_value" id="passenger${num}_age_value" value="18-64">
         </div>
       </div>
     `;
     passengerAccordion.appendChild(newAccordion);
-    document.getElementById('passenger_count').value = passengerCount;
+}
+
+function closePassengerDropdown() {
+    // Close the dropdown using Bootstrap's dropdown API
+    const dropdown = bootstrap.Dropdown.getOrCreateInstance(document.getElementById('passengerBtn'));
+    dropdown.hide();
     updatePassengerBtn();
 }
 
-function updatePassengerTypeAndAge(num, value) {
-    document.getElementById(`passenger${num}_type`).value = value;
-    let ageSelect = document.getElementById(`passenger${num}_age`);
-    let ageValue = document.getElementById(`passenger${num}_age_value`);
-    let options = "";
-
-    if (value === "adult") {
-        options = `<option value="18-64">18-64</option>
-                   <option value="65+">65+</option>`;
-        ageValue.value = "18-64";
-    } else if (value === "child") {
-        options = `<option value="2-11">2-11</option>
-                   <option value="12-17">12-17</option>`;
-        ageValue.value = "2-11";
-    } else if (value === "infant") {
-        options = `<option value="0-1">0-1</option>`;
-        ageValue.value = "0-1";
+// On page load, create the first passenger and update button
+document.addEventListener('DOMContentLoaded', function() {
+    if (passengerCount === 1 && document.getElementById('passengerAccordion').children.length === 0) {
+        createPassengerAccordion(1);
     }
-    ageSelect.innerHTML = options;
     updatePassengerBtn();
-}
-
-// Also update the age value when the age select changes
-document.addEventListener('change', function(e) {
-    if (e.target && e.target.id && e.target.id.includes('_age')) {
-        let num = e.target.id.match(/\d+/)[0];
-        document.getElementById(`passenger${num}_age_value`).value = e.target.value;
-    }
 });
 
-function updatePassengerBtn() {
-    let types = [];
-    for (let i = 1; i <= passengerCount; i++) {
-        let type = document.getElementById(`passenger${i}_type`).value;
-        types.push(type.charAt(0).toUpperCase() + type.slice(1));
+function removePassenger(num) {
+    const item = document.getElementById(`passengerItem${num}`);
+    if (item) {
+        item.remove();
+        passengerCount--;
+        document.getElementById('passenger_count').value = passengerCount;
+        updatePassengerBtn();
+        // Re-label remaining passengers
+        relabelPassengers();
     }
-    document.getElementById('passengerBtn').textContent = 'Passengers: ' + passengerCount;
+}
+
+function relabelPassengers() {
+    const items = document.querySelectorAll('#passengerAccordion .accordion-item');
+    items.forEach((item, idx) => {
+        const n = idx + 1;
+        item.id = `passengerItem${n}`;
+        item.querySelector('.accordion-button').textContent = `Passenger ${n}`;
+        item.querySelector('.accordion-header').id = `heading${n}`;
+        item.querySelector('.accordion-button').setAttribute('data-bs-target', `#collapse${n}`);
+        item.querySelector('.accordion-button').setAttribute('aria-controls', `collapse${n}`);
+        item.querySelector('.accordion-collapse').id = `collapse${n}`;
+        item.querySelector('.accordion-collapse').setAttribute('aria-labelledby', `heading${n}`);
+        // Show remove icon only for passengers > 1
+        const removeIcon = item.querySelector('span[title="Remove"]');
+        if (removeIcon) {
+            removeIcon.style.display = n > 1 ? '' : 'none';
+            removeIcon.setAttribute('onclick', `removePassenger(${n})`);
+        }
+    });
 }
     </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
