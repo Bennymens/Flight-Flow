@@ -225,6 +225,63 @@
     border-color: #028A9E !important;
     box-shadow: none !important;
 }
+
+.btn-outline-primary.dropdown-toggle:focus,
+.btn-outline-primary.dropdown-toggle:active,
+.btn-outline-primary.dropdown-toggle.show,
+.btn-outline-primary.dropdown-toggle:focus-visible {
+    background-color: #fff !important;
+    color: #028A9E !important;
+    border-color: #028A9E !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.passenger-dropdown .btn.btn-primary,
+.dropdown-menu .btn.btn-primary {
+    background: #fff !important;
+    color: #111 !important;
+    border: 2px solid #028A9E !important;
+    box-shadow: none !important;
+}
+.passenger-dropdown .btn.btn-primary:hover,
+.dropdown-menu .btn.btn-primary:hover {
+    background: #f5f7fa !important;
+    color: #028A9E !important;
+    border: 2px solid #028A9E !important;
+}
+
+/* ADD PASSENGER button: black text, no blue hover */
+.passenger-dropdown .btn-outline-primary,
+.dropdown-menu .btn-outline-primary {
+    color: #111 !important;
+    border: 2px solid #028A9E !important;
+    background: #fff !important;
+}
+.passenger-dropdown .btn-outline-primary:hover,
+.dropdown-menu .btn-outline-primary:hover,
+.passenger-dropdown .btn-outline-primary:focus,
+.dropdown-menu .btn-outline-primary:focus {
+    background: #f5f7fa !important;
+    color: #028A9E !important;
+    border: 2px solid #028A9E !important;
+    box-shadow: none !important;
+}
+
+/* Prevent passenger box from turning blue on hover/focus */
+.passenger-dropdown .accordion-button,
+.passenger-dropdown .accordion-button:focus,
+.passenger-dropdown .accordion-button:active,
+.passenger-dropdown .accordion-button:hover,
+.passenger-dropdown .accordion-button:not(.collapsed),
+.passenger-dropdown .accordion-button.collapsed:focus,
+.passenger-dropdown .accordion-button.collapsed:active,
+.passenger-dropdown .accordion-button.collapsed:hover {
+    background: #fff !important;
+    color: #028A9E !important;
+    box-shadow: none !important;
+    border-color: #028A9E !important;
+}
         @media (max-width: 700px) {
             .navbar-container {
                 flex-direction: column;
@@ -271,6 +328,69 @@
         padding: 1em 0.5em;
     }
 }
+
+.why-choose {
+    background: #fff;
+    padding: 2em 2rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+}
+
+.why-choose h2 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 2.5em;
+    margin-bottom: 1.5em;
+    color: #028A9E;
+}
+
+.features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2em;
+}
+
+.feature-box {
+    background: #f5f7fa;
+    border-radius: 12px;
+    padding: 2em;
+    text-align: center;
+    flex: 1 1 250px;
+    max-width: 300px;
+    box-shadow: 0 2px 12px rgba(2,138,158,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.feature-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 24px rgba(2,138,158,0.15);
+}
+
+.feature-box img {
+    max-width: 60px;
+    margin-bottom: 1em;
+}
+
+.feature-box h3 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+    color: #111;
+}
+
+.feature-box p {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 1em;
+    color: #333;
+    line-height: 1.4;
+}
     </style>
 </head>
 <body>
@@ -298,6 +418,7 @@
             <img src="{% static 'core/img/airplane-sunset.jpg' %}" class="slide active">
             <img src="{% static 'core/img/plane-airport-sunset.jpg' %}" class="slide">
             <img src="{% static 'core/img/planes-runway-modern-airport.jpg' %}" class="slide">
+            <img src="{% static 'core/img/airport-aircraft-airplane-aviation-transportation-travel.jpg' %}" class="slide">
         </div>
         <div class="slide-content">
             <h1 class="hero-title">Connecting Africa, One Flight at a Time</h1>
@@ -331,11 +452,11 @@
 </div>
             <input type="date" name="departure" placeholder="Departure Date" required>
             <input type="date" name="return" placeholder="Return Date">
-            <div class="btn-group dropup me-2" style="min-width: 180px;" data-bs-auto-close="outside">
+            <div class="btn-group me-2" style="min-width: 180px;" data-bs-auto-close="outside">
   <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="passengerBtn">
     Passengers
   </button>
-  <div class="dropdown-menu p-3" style="min-width: 300px;" onclick="event.stopPropagation();">
+  <div class="dropdown-menu p-3 passenger-dropdown" style="min-width: 300px;" onclick="event.stopPropagation();">
     <div class="mb-2 fw-bold" id="passengerMenuTitle">Passengers (1)</div>
     <div id="passengerList">
       <div class="accordion" id="passengerAccordion">
@@ -361,11 +482,58 @@
   </ul>
   <input type="hidden" name="class" id="classInput" value="">
 </div>
-            <button type="submit" class="cta-btn" style="margin:0;">Search</button>
+            <button type="submit" class="cta-btn" style="margin:0;">Search Flight</button>
         </div>
     </form>
 </div>
+    </div> <!-- End .container (after flight-search-form) -->
+
+    
+            </div>
+        </div>
+    </section>
+    <!-- Why Choose FlightFlow Section -->
+<section class="why-choose">
+  <h2>Why Choose FlightFlow?</h2>
+  <div class="features">
+    <div class="feature-box">
+      <i class="ri-plane-line" style="font-size:48px; color:#028A9E; margin-bottom:15px;"></i>
+      <h3>Compare Flights</h3>
+      <p>See multiple airlines, prices, and flight durations at once.</p>
     </div>
+    <div class="feature-box">
+      <!-- Flexible Payments Icon: Credit card -->
+      <svg width="48" height="48" fill="none" viewBox="0 0 48 48">
+        <rect x="6" y="12" width="36" height="24" rx="4" stroke="#F4A261" stroke-width="2.5" fill="#fff"/>
+        <rect x="10" y="28" width="8" height="4" rx="2" fill="#F4A261"/>
+        <rect x="22" y="28" width="8" height="4" rx="2" fill="#F4A261"/>
+        <rect x="6" y="18" width="36" height="4" fill="#F4A261" opacity="0.2"/>
+      </svg>
+      <h3>Flexible Payments</h3>
+      <p>Use Mobile Money, Paystack, or Flutterwave to pay securely.</p>
+    </div>
+    <div class="feature-box">
+      <!-- Africa-first Icon: Africa continent SVG -->
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+    <circle cx="24" cy="24" r="22" stroke="#028A9E" stroke-width="2.5" fill="#F4A26122"/>
+    <path d="M20 12
+      Q22 10, 26 12
+      Q32 14, 32 20
+      Q36 22, 34 28
+      Q32 32, 28 32
+      Q26 36, 22 34
+      Q18 32, 18 28
+      Q14 26, 16 22
+      Q14 18, 18 16
+      Q18 14, 20 12
+      Z"
+      fill="#F4A261" stroke="#028A9E" stroke-width="1.5"/>
+  </svg>
+      <h3>Africa-first</h3>
+      <p>Built for African travellers, supporting local currencies and languages.</p>
+    </div>
+  </div>
+</section>
     <script>
 document.addEventListener('DOMContentLoaded', function() {
     let slides = document.querySelectorAll('.slide');
@@ -400,6 +568,8 @@ function addPassenger() {
     createPassengerAccordion(passengerCount);
     document.getElementById('passenger_count').value = passengerCount;
     updatePassengerBtn();
+    // Remove focus from the dropdown button to prevent blue highlight
+    document.getElementById('passengerBtn').blur();
 }
 
 function createPassengerAccordion(num) {
