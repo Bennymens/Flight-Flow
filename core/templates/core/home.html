@@ -391,6 +391,69 @@
     color: #333;
     line-height: 1.4;
 }
+
+/* Explore Destinations Section */
+.destinations-section {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.destinations-section h2 {
+  color: #008080;
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.destinations-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.destination-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
+  max-width: 250px;
+  text-align: center;
+  padding: 15px;
+  transition: transform 0.3s ease;
+}
+
+.destination-card:hover {
+  transform: translateY(-5px);
+}
+
+.destination-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.destination-card h3 {
+  color: #008080;
+  margin-top: 10px;
+  font-size: 1.2rem;
+}
+
+.destination-card p {
+  margin: 5px 0;
+}
+
+.did-you-know {
+  font-size: 0.9rem;
+  background-color: #fffbe6;
+  border-radius: 6px;
+  padding: 8px;
+  color: #666;
+}
+
+.full-width {
+  flex: 1 1 100%;
+  max-width: 520px;
+}
     </style>
 </head>
 <body>
@@ -531,6 +594,57 @@
   </svg>
       <h3>Africa-first</h3>
       <p>Built for African travellers, supporting local currencies and languages.</p>
+    </div>
+  </div>
+</section>
+<!-- Explore Destinations Section -->
+<section class="destinations-section">
+  <h2>Explore Destinations</h2>
+  <div class="destinations-grid">
+    <div class="destination-card">
+      <img src="{% static 'core/img/Nairobi.jpg' %}" alt="Nairobi">
+      <h3>Nairobi</h3>
+      <p>Safari Capital of Africa</p>
+      <p class="did-you-know">
+        <strong>Did you know?</strong><br>
+        Nairobi National Park is the only wildlife park in a capital city!
+      </p>
+    </div>
+    <div class="destination-card">
+      <img src="{% static 'core/img/lagos.jpg' %}" alt="Lagos">
+      <h3>Lagos</h3>
+      <p>The City That Never Sleeps</p>
+      <p class="did-you-know">
+        <strong>Did you know?</strong><br>
+        Lagos is Africa's most populous city and a major tech hub.
+      </p>
+    </div>
+    <div class="destination-card">
+      <img src="{% static 'core/img/KIGALI.jpg' %}" alt="Kigali">
+      <h3>Kigali</h3>
+      <p>Africa’s Cleanest City</p>
+      <p class="did-you-know">
+        <strong>Did you know?</strong><br>
+        Kigali bans plastic bags and has monthly citywide cleanups!
+      </p>
+    </div>
+    <div class="destination-card">
+      <img src="{% static 'core/img/Abidjan.png' %}" alt="Abidjan">
+      <h3>Abidjan</h3>
+      <p>The Paris of West Africa</p>
+      <p class="did-you-know">
+        <strong>Did you know?</strong><br>
+        Abidjan’s skyline is one of the most impressive in Africa.
+      </p>
+    </div>
+    <div class="destination-card full-width">
+      <img src="{% static 'core/img/Accra.jpg' %}" alt="Accra">
+      <h3>Accra</h3>
+      <p>Ghana’s Vibrant Coastal Capital</p>
+      <p class="did-you-know">
+        <strong>Did you know?</strong><br>
+        Accra is famous for its lively arts scene and historic Jamestown district.
+      </p>
     </div>
   </div>
 </section>
