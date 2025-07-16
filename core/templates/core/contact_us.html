@@ -2,16 +2,241 @@
 <html>
 <head>
     <title>Flight-Flow | Contact Us</title>
+    {% load static %}
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
+    <link rel="icon" type="image/x-icon" href="{% static 'core/img/favicon.ico' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #F5F7FA;
+            color: #1A1A1A;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background: linear-gradient(90deg, #F5F7FA 80%, #e0f7fa 100%);
+            border-bottom: 2px solid #028A9E;
+            box-shadow: 0 2px 12px rgba(2,138,158,0.08);
+            border-radius: 0 0 18px 18px;
+            min-height: 56px;
+        }
+        .navbar-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2em;
+            width: 100%;
+        }
+        .logo img {
+            max-height: 60px;
+            width: auto;
+            display: block;
+        }
+        .nav-links ul {
+            list-style: none;
+            display: flex;
+            gap: 24px;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-links a {
+            color: #028A9E;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 1.08em;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: #F7C948;
+        }
+        .contact-hero {
+            background: linear-gradient(100deg, #e0f7fa 60%, #f5fafd 100%);
+            padding: 48px 0 32px 0;
+            text-align: center;
+            margin-bottom: 0;
+        }
+        .contact-hero h1 {
+            font-size: 2.2em;
+            color: #028A9E;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .contact-hero p {
+            color: #444;
+            font-size: 1.15em;
+            margin-bottom: 0;
+        }
+        .contact-main {
+            max-width: 950px;
+            margin: 0 auto 48px auto;
+            display: flex;
+            gap: 32px;
+            padding: 0 2em;
+        }
+        .contact-card {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 16px rgba(2,138,158,0.07);
+            padding: 32px 24px;
+            flex: 1 1 340px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .contact-card h2 {
+            color: #028A9E;
+            font-size: 1.3em;
+            margin-bottom: 18px;
+        }
+        .contact-info-list {
+            margin-bottom: 18px;
+        }
+        .contact-info-list p, .contact-info-list a {
+            font-size: 1.08em;
+            color: #444;
+            margin-bottom: 8px;
+        }
+        .contact-social {
+            margin-top: 18px;
+        }
+        .contact-social a {
+            color: #028A9E;
+            font-size: 1.5em;
+            margin-right: 16px;
+            transition: color 0.2s;
+        }
+        .contact-social a:hover {
+            color: #F7C948;
+        }
+        .contact-form label {
+            font-weight: 500;
+        }
+        .form-control, .btn {
+            border-radius: 8px;
+        }
+        .contact-image {
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto 24px auto;
+            border-radius: 18px;
+            box-shadow: 0 4px 16px rgba(2,138,158,0.07);
+            object-fit: cover;
+        }
+        @media (max-width: 900px) {
+            .contact-main {
+                flex-direction: column;
+                gap: 0;
+                padding: 0 1em;
+            }
+            .contact-card {
+                margin-bottom: 24px;
+                padding: 24px 12px;
+            }
+            .contact-image {
+                max-width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Contact Us</h1>
     <nav>
-        <a href="{% url 'home' %}">Home</a> |
-        <a href="{% url 'flights' %}">Flights</a> |
-        <a href="{% url 'about_us' %}">About Us</a> |
-        <a href="{% url 'contact_us' %}">Contact Us</a> |
-        <a href="{% url 'login' %}">Login</a>
+        <div class="navbar-container">
+            <span class="logo">
+                <img src="{% static 'core/img/WhatsApp_Image_2025-06-19_at_11.15.24_815a1b9d-removebg-preview.png' %}" 
+                     alt="Flight-Flow Logo">
+            </span>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'flights' %}">Flights</a></li>
+                    <li><a href="{% url 'about_us' %}">About Us</a></li>
+                    <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
-    <p>Email: support@flightflow.com</p>
+    <section class="contact-hero">
+        <img src="{% static 'core/img/contact-hero.jpg' %}" alt="Contact FlightFlow" class="contact-image">
+        <h1>We’d love to hear from you!</h1>
+        <p>Reach out for support, partnerships, or feedback. Our team is here to help you travel Africa with ease.</p>
+    </section>
+    <div class="contact-main">
+        <div class="contact-card">
+            <h2>Contact Information</h2>
+            <div class="contact-info-list">
+                <p>
+                    <span style="background:#e0f7fa; border-radius:50%; padding:8px; margin-right:8px;">
+                        <i class="bi bi-envelope" style="color:#028A9E; font-size:1.3em;"></i>
+                    </span>
+                    <strong>Email:</strong> <a href="mailto:support@flightflow.com">support@flightflow.com</a>
+                </p>
+                <p>
+                    <span style="background:#e0f7fa; border-radius:50%; padding:8px; margin-right:8px;">
+                        <i class="bi bi-person" style="color:#028A9E; font-size:1.3em;"></i>
+                    </span>
+                    <strong>General Enquiries:</strong> <a href="mailto:haja@flight-flow.co">haja@flight-flow.co</a>
+                </p>
+                <p>
+                    <span style="background:#e0f7fa; border-radius:50%; padding:8px; margin-right:8px;">
+                        <i class="bi bi-cash" style="color:#028A9E; font-size:1.3em;"></i>
+                    </span>
+                    <strong>Investor Relations:</strong> <a href="mailto:invest@flight-flow.co">invest@flight-flow.co</a>
+                </p>
+                <p>
+                    <span style="background:#e0f7fa; border-radius:50%; padding:8px; margin-right:8px;">
+                        <i class="bi bi-geo-alt" style="color:#028A9E; font-size:1.3em;"></i>
+                    </span>
+                    <strong>Location:</strong> Remote, Africa
+                </p>
+                <p>
+                    <span style="background:#e0f7fa; border-radius:50%; padding:8px; margin-right:8px;">
+                        <i class="bi bi-clock" style="color:#028A9E; font-size:1.3em;"></i>
+                    </span>
+                    <strong>Hours:</strong> Mon-Fri, 9am–6pm CAT
+                </p>
+            </div>
+            <div style="font-size:1em; color:#444; margin-bottom:10px;">
+                <i class="bi bi-chat-dots" style="color:#F7C948; font-size:1.2em;"></i>
+                <span>We reply within 24 hours!</span>
+            </div>
+            <div class="contact-social">
+                <span>Follow us:</span>
+                <a href="https://www.linkedin.com/company/flightflowafrica/" title="LinkedIn" target="_blank" rel="noopener"><i class="bi bi-linkedin"></i></a>
+                <a href="https://www.instagram.com/flightflowafrica?igsh=aXBwem85bGJzNjZm" title="Instagram" target="_blank" rel="noopener"><i class="bi bi-instagram"></i></a>
+                <a href="#" title="Twitter"><i class="bi bi-twitter-x"></i></a>
+            </div>
+        </div>
+        <div class="contact-card">
+            <h2>Send Us a Message</h2>
+            <form>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Your Name">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="your@email.com">
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea class="form-control" id="message" rows="4" placeholder="Type your message here"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary px-4">Send</button>
+            </form>
+        </div>
+    </div>
+    <a href="{% url 'profile' %}" style="padding:0; border:none;">
+        <span style="display:inline-block; width:38px; height:38px; border-radius:50%; overflow:hidden; background:#e0f7fa; vertical-align:middle; border:2px solid #028A9E;">
+            <img src="{% static 'core/img/default-avatar.png' %}" alt="Profile" style="width:100%; height:100%; object-fit:cover;">
+        </span>
+    </a>
 </body>
 </html>

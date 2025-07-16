@@ -43,7 +43,9 @@
             filter: drop-shadow(0 2px 8px rgba(2,138,158,0.10));
         }
         .nav-links {
-            margin-left: auto;
+            display: flex;
+    align-items: center;
+    margin-left: auto;
         }
         .nav-links ul {
             list-style: none;
@@ -281,6 +283,39 @@
     color: #028A9E !important;
     box-shadow: none !important;
     border-color: #028A9E !important;
+}
+        @media (max-width: 700px) {
+            .navbar-container {
+                flex-direction: row !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                height: 62px !important;
+                padding: 0 14px !important;
+            }
+            .logo img {
+                max-height: 44px !important;
+            }
+            .mobile-nav-toggle {
+                display: flex !important;
+                align-items: center;
+                justify-content: flex-end;
+                margin-left: auto !important;
+                margin-right: 0 !important;
+                height: 100%;
+            }
+            .nav-links {
+                display: none !important;
+            }
+            .nav-profile-link {
+                margin-left: 12px !important;
+                display: flex !important;
+                align-items: center !important;
+            }
+        }
+        @media (min-width: 701px) {
+    .mobile-nav-toggle {
+        display: none !important;
+    }
 }
         @media (max-width: 700px) {
             .navbar-container {
@@ -526,18 +561,35 @@
 }
 
 @media (max-width: 700px) {
-  .gallery-card {
-    width: 70vw;
-    min-width: 200px;
-    height: 120px;
+  .destinations-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    align-items: center !important;
+    padding: 0 8px !important;
   }
+  .destination-card {
+    width: 90vw !important;
+    max-width: 340px !important;
+    margin: 0 auto !important;
+  }
+
+  /* Gallery: horizontal scroll, cards in a row */
   .gallery-grid {
-    padding: 0 8px;
-    gap: 12px;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+    padding: 0 8px !important;
+    overflow-x: unset !important;
+    scroll-snap-type: none !important;
   }
-  .gallery-section {
-    padding: 32px 0 20px 0;
-    border-radius: 10px;
+  .gallery-card {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: 120px !important;
+    margin-bottom: 8px !important;
+    scroll-snap-align: unset !important;
   }
 }
 
@@ -704,6 +756,21 @@
   }
 }
 
+/* Hide nav-links on mobile, show on desktop */
+@media (max-width: 700px) {
+    .nav-links {
+        display: none !important;
+    }
+}
+@media (min-width: 701px) {
+    .nav-links {
+        display: flex !important;
+    }
+    .mobile-nav-slider {
+        display: none !important;
+    }
+}
+
 .cta-explore-fullwidth {
   border-radius: 0 !important;
   width: 100vw;
@@ -726,6 +793,83 @@
     padding-right: 0;
   }
 }
+
+/* Align profile image with nav links */
+.nav-profile-link {
+    display: flex;
+    align-items: center;
+    margin-left: 2em;
+}
+
+.nav-profile-link img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2.5px solid #028A9E;
+    box-shadow: 0 2px 8px rgba(2,138,158,0.10);
+    background: #fff;
+    /* Add a smooth border for the circle */
+    transition: box-shadow 0.2s, border-color 0.2s;
+    vertical-align: middle;
+}
+
+/* Hamburger only on mobile */
+@media (max-width: 700px) {
+    .mobile-nav-toggle {
+        display: block !important;
+        margin-right: 1em;
+    }
+    .nav-links {
+        display: none !important;
+    }
+    .nav-profile-link {
+        margin-left: auto !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+    .mobile-nav-slider {
+        position: fixed;
+        top: 0;
+        right: -260px;
+        width: 240px;
+        height: 100vh;
+        background: #fff;
+        box-shadow: -2px 0 12px rgba(2,138,158,0.12);
+        z-index: 9999;
+        transition: right 0.3s;
+        padding: 32px 18px 18px 18px;
+    }
+    .mobile-nav-slider.open {
+        right: 0;
+    }
+    .mobile-nav-content ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .mobile-nav-content ul li {
+        margin-bottom: 1.2em;
+    }
+    .mobile-nav-content ul li a {
+        color: #028A9E;
+        font-size: 1.1em;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.5em 0;
+        display: block;
+        border-radius: 8px;
+        transition: background 0.2s, color 0.2s;
+    }
+    .mobile-nav-content ul li a:hover {
+        background: #F7C948;
+        color: #028A9E;
+    }
+    .close-mobile-nav {
+        margin-bottom: 24px;
+        display: block;
+    }
+}
     </style>
 </head>
 <body>
@@ -733,21 +877,49 @@
         <div class="navbar-container">
             <span class="logo">
                 <img src="{% static 'core/img/WhatsApp_Image_2025-06-19_at_11.15.24_815a1b9d-removebg-preview.png' %}" 
-                     alt="Flight-Flow Logo"
-                     style="max-height: 120px; width: auto; display: block;">
+                     alt="Flight-Flow Logo">
             </span>
+            <div class="mobile-nav-toggle" id="mobileNavToggle">
+                <span style="font-size:2em; color:#028A9E; cursor:pointer;">
+                    &#9776;
+                </span>
+            </div>
+            {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}" class="nav-profile-link">
+                <img src="{{ user.profile.profile_pic.url }}" alt="Profile">
+            </a>
+            {% endif %}
             <div class="nav-links">
                 <ul>
                     <li><a href="{% url 'home' %}">Home</a></li>
                     <li><a href="{% url 'flights' %}">Flights</a></li>
                     <li><a href="{% url 'about_us' %}">About Us</a></li>
                     <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+                    {% if not user.is_authenticated %}
                     <li><a href="{% url 'login' %}">Login</a></li>
+                    {% endif %}
                 </ul>
-            </div>
             </div>
         </div>
     </nav>
+    <!-- Do NOT repeat the nav-links block anywhere else in your HTML. 
+If you see another <div class="nav-links">...</div> below the navbar, delete it. -->
+
+<!-- Keep the mobileNavSlider for mobile navigation only: -->
+<div id="mobileNavSlider" class="mobile-nav-slider">
+    <div class="mobile-nav-content">
+        <span class="close-mobile-nav" id="closeMobileNav" style="font-size:2em; color:#028A9E; cursor:pointer; float:right;">&times;</span>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'flights' %}">Flights</a></li>
+            <li><a href="{% url 'about_us' %}">About Us</a></li>
+            <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+            {% if not user.is_authenticated %}
+            <li><a href="{% url 'login' %}">Login</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
     <div class="container">
         <div class="slideshow-bg">
             <img src="{% static 'core/img/airplane-sunset.jpg' %}" class="slide active">
@@ -1012,8 +1184,8 @@
     </div>
     <div class="footer-social">
       <span>Follow us:</span>
-      <a href="#" title="LinkedIn" style="margin:0 8px;"><i class="bi bi-linkedin"></i></a>
-      <a href="#" title="Instagram" style="margin:0 8px;"><i class="bi bi-instagram"></i></a>
+      <a href="https://www.linkedin.com/company/flightflowafrica/" title="LinkedIn" style="margin:0 8px;" target="_blank" rel="noopener"><i class="bi bi-linkedin"></i></a>
+      <a href="https://www.instagram.com/flightflowafrica?igsh=aXBwem85bGJzNjZm" title="Instagram" style="margin:0 8px;" target="_blank" rel="noopener"><i class="bi bi-instagram"></i></a>
       <a href="#" title="Twitter" style="margin:0 8px;"><i class="bi bi-twitter-x"></i></a>
     </div>
     <div class="footer-copy">
@@ -1022,16 +1194,17 @@
   </div>
 </footer>
 
-    <script>
-document.addEventListener('DOMContentLoaded', function() {
-    let slides = document.querySelectorAll('.slide');
-    let currentSlide = 0;
-    setInterval(() => {
-        slides[currentSlide].classList.remove('active');
-        currentSlide = (currentSlide + 1) % slides.length;
-        slides[currentSlide].classList.add('active');
-    }, 4000); // Change image every 4 seconds
-});
+<script>
+    // Slideshow functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+        setInterval(function() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 4000); // Change image every 4 seconds
+    });
 
 function setTripType(label, value) {
     document.getElementById('tripTypeBtn').textContent = label;
@@ -1143,6 +1316,27 @@ function relabelPassengers() {
         }
     });
 }
+
+/* Mobile Navigation */
+document.addEventListener('DOMContentLoaded', function() {
+    var mobileNavToggle = document.getElementById('mobileNavToggle');
+    var mobileNavSlider = document.getElementById('mobileNavSlider');
+    var closeMobileNav = document.getElementById('closeMobileNav');
+    if (mobileNavToggle && mobileNavSlider && closeMobileNav) {
+        mobileNavToggle.addEventListener('click', function() {
+            mobileNavSlider.classList.add('open');
+        });
+        closeMobileNav.addEventListener('click', function() {
+            mobileNavSlider.classList.remove('open');
+        });
+        // Optional: close slider when clicking outside
+        mobileNavSlider.addEventListener('click', function(e) {
+            if (e.target === mobileNavSlider) {
+                mobileNavSlider.classList.remove('open');
+            }
+        });
+    }
+});
     </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

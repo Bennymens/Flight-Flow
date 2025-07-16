@@ -2,16 +2,313 @@
 <html>
 <head>
     <title>Flight-Flow | About Us</title>
+    {% load static %}
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <link rel="icon" type="image/x-icon" href="{% static 'core/img/favicon.ico' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            margin: 0;
+            padding: 0;
+            background: #F5F7FA;
+            color: #1A1A1A;
+        }
+        nav {
+            background: linear-gradient(90deg, #F5F7FA 80%, #e0f7fa 100%);
+            border-bottom: 2px solid #028A9E;
+            box-shadow: 0 2px 12px rgba(2,138,158,0.08);
+            border-radius: 0 0 18px 18px;
+            overflow: hidden;
+            min-height: 56px;
+        }
+        .navbar-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2em;
+            width: 100%;
+            min-height: 56px;
+        }
+        .logo img {
+            max-height: 80px;
+            width: auto;
+            display: block;
+        }
+        .nav-links ul {
+            list-style: none;
+            display: flex;
+            gap: 24px;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-links a {
+            color: #028A9E;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 1.08em;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: #F7C948;
+        }
+        .about-section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 2em;
+        }
+        .about-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            gap: 24px;
+        }
+        .about-image {
+            flex: 1;
+            padding: 0 20px;
+            min-width: 180px;
+        }
+        .about-image img,
+        .about-image video {
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(2,138,158,0.07);
+            max-width: 400px;
+            height: auto;
+            object-fit: cover;
+        }
+        .about-text {
+            flex: 1;
+            padding: 0 20px;
+        }
+        .about-text h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #028A9E;
+        }
+        .about-section .subtitle {
+            font-weight: 500;
+            margin-bottom: 15px;
+            color: #F7C948;
+        }
+        .about-section p {
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+        .alt-bg {
+            background-color: #e0f7fa;
+            border-radius: 16px;
+            padding: 16px 0;
+        }
+        .reverse {
+            flex-direction: row-reverse;
+        }
+        /* Mobile styles */
+        @media (max-width: 900px) {
+            .about-section {
+                padding: 0 1em;
+            }
+            .about-row,
+            .about-row.reverse {
+                flex-direction: column !important;
+                gap: 0;
+            }
+            .about-image,
+            .about-text {
+                padding: 0;
+                min-width: 0;
+            }
+            .about-image img,
+            .about-image video {
+                max-width: 100%;
+                margin-bottom: 18px;
+            }
+            .about-text h2 {
+                font-size: 1.3em;
+            }
+            .alt-bg {
+                padding: 10px 0;
+                border-radius: 10px;
+            }
+            .navbar-container {
+                flex-direction: column;
+                padding: 0 1em;
+            }
+            .nav-links ul {
+                gap: 12px;
+                font-size: 0.98em;
+            }
+            .logo img {
+                max-height: 48px;
+            }
+        }
+        /* Footer mobile styles */
+        @media (max-width: 700px) {
+            .site-footer {
+                padding: 24px 0 16px 0;
+                border-radius: 0 0 10px 10px;
+            }
+            .footer-content {
+                padding: 0 10px;
+                font-size: 0.98em;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>About Flight-Flow</h1>
     <nav>
-        <a href="{% url 'home' %}">Home</a> |
-        <a href="{% url 'flights' %}">Flights</a> |
-        <a href="{% url 'about_us' %}">About Us</a> |
-        <a href="{% url 'contact_us' %}">Contact Us</a> |
-        <a href="{% url 'login' %}">Login</a>
+        <div class="navbar-container">
+            <span class="logo">
+                <img src="{% static 'core/img/WhatsApp_Image_2025-06-19_at_11.15.24_815a1b9d-removebg-preview.png' %}" 
+                     alt="Flight-Flow Logo">
+            </span>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'flights' %}">Flights</a></li>
+                    <li><a href="{% url 'about_us' %}">About Us</a></li>
+                    <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
-    <p>Flight-Flow helps you book and compare flights across Africa.</p>
+    <div style="max-width:900px; margin:40px auto; padding:0 2em;">
+        <h1>About Flight-Flow</h1>
+        <p>Flight-Flow helps you book and compare flights across Africa.</p>
+    </div>
+    <section class="about-section">
+      <div class="about-row">
+        <div class="about-image" data-aos="fade-right">
+          <img src="{% static 'core/img/team.jpg' %}" alt="Our Team">
+        </div>
+        <div class="about-text" data-aos="fade-left">
+          <h2>Who We Are</h2>
+          <div class="subtitle">A passionate team connecting Africa’s skies.</div>
+          <p>FlightFlow is a travel-tech company on a mission to make intra-African travel easier,
+            more affordable, and more transparent. Whether you're flying for business, family, or adventure,
+            we help you discover the best flight options - all in one place.          </p>
+        </div>
+      </div>
+    </section>
+    <section class="about-section alt-bg">
+      <div class="about-row reverse">
+        <div class="about-text" data-aos="fade-right">
+          <h2>Why We're Different</h2>
+          <div class="subtitle">Africa-first, always.</div>
+          <p>Wn were born out of real frustration with unreliable arline websites, changing prices, and limited route visibility
+            across African cities. With FlightFlow, we're centralising the fragmented travel ecosystem - offering smarter tools, 
+            clearer comparisons, and a human-first experience.</p>
+          </p>
+        </div>
+        <div class="about-image" data-aos="fade-left">
+          <img src="{% static 'core/img/africa-map.png' %}" alt="Africa Map">
+        </div>
+      </div>
+    </section>
+    <section class="about-section">
+      <div class="about-row">
+        <div class="about-image" data-aos="fade-right">
+          <video src="{% static 'core/video/vision.mp4' %}" controls style="width:100%; border-radius:16px;"></video>
+        </div>
+        <div class="about-text" data-aos="fade-left">
+          <h2>Our Vision</h2>
+          <div class="subtitle">Connecting Africa, one flight at a time.</div>
+          <p>To become the leading digital fliht aggregator for Africa, empowering millions of travellers
+  with information, choice, and connection.<br><br>
+  <strong>Built in Africa. For Africans. By Africans.</strong>
+</p>
+          </p>
+        </div>
+      </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+    <footer class="site-footer">
+      <div class="footer-content">
+        <div class="footer-contacts">
+          <div>
+            <strong>General Enquiries:</strong>
+            <a href="mailto:haja@flight-flow.co">haja@flight-flow.co</a>
+          </div>
+          <div>
+            <strong>Investor Relations:</strong>
+            <a href="mailto:invest@flight-flow.co">invest@flight-flow.co</a>
+          </div>
+        </div>
+        <div class="footer-social">
+          <span>Follow us:</span>
+          <a href="https://www.linkedin.com/company/flightflowafrica/" title="LinkedIn" style="margin:0 8px;" target="_blank" rel="noopener"><i class="bi bi-linkedin"></i></a>
+          <a href="https://www.instagram.com/flightflowafrica?igsh=aXBwem85bGJzNjZm" title="Instagram" style="margin:0 8px;" target="_blank" rel="noopener"><i class="bi bi-instagram"></i></a>
+          <a href="#" title="Twitter" style="margin:0 8px;"><i class="bi bi-twitter-x"></i></a>
+        </div>
+        <div class="footer-copy">
+          &copy; {{ now|date:"Y" }} Flight-Flow. All rights reserved.
+        </div>
+      </div>
+    </footer>
+    <style>
+      .site-footer {
+        background: #028A9E;
+        color: #fff;
+        text-align: center;
+        padding: 36px 0 24px 0;
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.05em;
+        letter-spacing: 0.5px;
+        margin-top: 0;
+        border-radius: 0 0 18px 18px;
+      }
+      .footer-content {
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+      }
+      .footer-contacts {
+        margin-bottom: 8px;
+      }
+      .footer-contacts a {
+        color: #fff;
+        text-decoration: underline;
+        margin-left: 4px;
+      }
+      .footer-social {
+        margin: 10px 0;
+        font-size: 1.15em;
+      }
+      .footer-social a {
+        color: #fff;
+        font-size: 1.4em;
+        transition: color 0.2s;
+        vertical-align: middle;
+      }
+      .footer-social a:hover {
+        color: #F7C948;
+      }
+      .footer-copy {
+        font-size: 0.98em;
+        color: #e0f7fa;
+        margin-top: 8px;
+      }
+      @media (max-width: 700px) {
+        .footer-content {
+          padding: 0 10px;
+          font-size: 0.98em;
+        }
+      }
+    </style>
 </body>
 </html>
