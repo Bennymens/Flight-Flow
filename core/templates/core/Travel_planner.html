@@ -1,0 +1,439 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Travel Planner | Flight-Flow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f5fafd;
+            margin: 0;
+            color: #1A1A1A;
+        }
+        .planner-container {
+            max-width: 1100px;
+            margin: 0 auto 40px auto;
+            padding: 2em 1em;
+        }
+        h1, h2 {
+            color: #028A9E;
+            text-align: center;
+        }
+        .flight-search, .itinerary, .add-ons, .map-weather, .destination-guide, .countdown, .tools, .traveler-info, .notifications {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(2,138,158,0.08);
+            margin-bottom: 2em;
+            padding: 2em 1.5em;
+        }
+        .flight-search label, .traveler-info label {
+            font-weight: 500;
+            color: #028A9E;
+        }
+        .flight-search input, .flight-search select, .traveler-info input {
+            padding: 0.7em 1em;
+            border: 1px solid #b2ebf2;
+            border-radius: 8px;
+            font-size: 1em;
+            margin-bottom: 1em;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .flight-search-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1em;
+        }
+        .flight-search-row > div {
+            flex: 1 1 180px;
+            min-width: 160px;
+        }
+        .search-btn {
+            background: #028A9E;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.9em 2em;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1em;
+            transition: background 0.2s;
+        }
+        .search-btn:hover {
+            background: #025e6e;
+        }
+        .itinerary-list, .add-ons-list, .tools-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .itinerary-flight {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+            background: #e0f7fa;
+            border-radius: 10px;
+            padding: 1em;
+            margin-bottom: 1em;
+        }
+        .itinerary-flight img.airline-logo {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            border-radius: 8px;
+            background: #fff;
+            border: 1px solid #b2ebf2;
+            margin-right: 0.7em;
+        }
+        .itinerary-flight .flight-info {
+            flex: 1;
+        }
+        .itinerary-flight .flight-route {
+            font-weight: 600;
+            color: #028A9E;
+            font-size: 1.1em;
+        }
+        .itinerary-flight .flight-details {
+            font-size: 0.98em;
+            color: #333;
+        }
+        .itinerary-flight .flight-price {
+            font-weight: 700;
+            color: #009688;
+            font-size: 1.1em;
+            margin-left: 1em;
+        }
+        .itinerary-flight .airport-codes {
+            font-size: 0.95em;
+            color: #666;
+            margin-left: 0.5em;
+        }
+        .itinerary-list li, .add-ons-list li, .tools-list li {
+            margin-bottom: 1em;
+            padding-left: 1.2em;
+            position: relative;
+        }
+        .itinerary-list li:before {
+            content: "⏱️";
+            position: absolute;
+            left: 0;
+        }
+        .add-ons-list li:before {
+            content: "➕";
+            position: absolute;
+            left: 0;
+        }
+        .tools-list li:before {
+            content: "🧰";
+            position: absolute;
+            left: 0;
+        }
+        .map-weather {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2em;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+        .map-box, .weather-box {
+            flex: 1 1 320px;
+            min-width: 260px;
+            background: #e0f7fa;
+            border-radius: 12px;
+            padding: 1.2em 1em;
+            margin-bottom: 0;
+        }
+        .destination-guide {
+            background: #e0f7fa;
+        }
+        .africa-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.2em;
+            margin: 2em 0;
+        }
+        .africa-country {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(2,138,158,0.08);
+            overflow: hidden;
+            text-align: center;
+            padding-bottom: 0.7em;
+        }
+        .africa-country img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-bottom: 2px solid #e0f7fa;
+        }
+        .africa-country .country-name {
+            font-weight: 600;
+            color: #028A9E;
+            margin-top: 0.5em;
+        }
+        .countdown {
+            text-align: center;
+            font-size: 1.3em;
+            color: #028A9E;
+        }
+        .save-share {
+            text-align: center;
+            margin-top: 1.5em;
+        }
+        .save-btn, .share-btn {
+            background: #028A9E;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.7em 1.5em;
+            font-size: 1em;
+            font-weight: 500;
+            margin: 0 0.5em;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .save-btn:hover, .share-btn:hover {
+            background: #025e6e;
+        }
+        @media (max-width: 900px) {
+            .planner-container {
+                padding: 1em 0.2em;
+            }
+            .map-weather {
+                flex-direction: column;
+                gap: 1em;
+            }
+            .africa-gallery {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="planner-container">
+        <h1>Travel Planner</h1>
+
+        <!-- African Destinations Gallery -->
+        <section>
+            <h2>Explore Africa</h2>
+            <div class="africa-gallery">
+                <div class="africa-country">
+                    <img src="{% static 'core/img/africa/lagos-nigeria.jpg' %}" alt="Lagos, Nigeria">
+                    <div class="country-name">Lagos, Nigeria</div>
+                </div>
+                <div class="africa-country">
+                    <img src="{% static 'core/img/africa/nairobi-kenya.jpg' %}" alt="Nairobi, Kenya">
+                    <div class="country-name">Nairobi, Kenya</div>
+                </div>
+                <div class="africa-country">
+                    <img src="{% static 'core/img/africa/cape-town-south-africa.jpg' %}" alt="Cape Town, South Africa">
+                    <div class="country-name">Cape Town, South Africa</div>
+                </div>
+                <div class="africa-country">
+                    <img src="{% static 'core/img/africa/accra-ghana.jpg' %}" alt="Accra, Ghana">
+                    <div class="country-name">Accra, Ghana</div>
+                </div>
+                <div class="africa-country">
+                    <img src="{% static 'core/img/africa/casablanca-morocco.jpg' %}" alt="Casablanca, Morocco">
+                    <div class="country-name">Casablanca, Morocco</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Flight Search Section -->
+        <section class="flight-search">
+            <h2>Find Your Flight</h2>
+            <div class="flight-search-row">
+                <div>
+                    <label for="from">From</label>
+                    <input type="text" id="from" placeholder="Departure city or airport">
+                </div>
+                <div>
+                    <label for="to">To</label>
+                    <input type="text" id="to" placeholder="Arrival city or airport">
+                </div>
+                <div>
+                    <label for="depart">Departure Date</label>
+                    <input type="date" id="depart">
+                </div>
+                <div>
+                    <label for="return">Return Date</label>
+                    <input type="date" id="return">
+                </div>
+                <div>
+                    <label for="trip-type">Trip Type</label>
+                    <select id="trip-type">
+                        <option>Round Trip</option>
+                        <option>One Way</option>
+                        <option>Multi-City</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="passengers">Passengers</label>
+                    <input type="number" id="passengers" min="1" value="1">
+                </div>
+                <div>
+                    <label for="class">Class</label>
+                    <select id="class">
+                        <option>Economy</option>
+                        <option>Premium Economy</option>
+                        <option>Business</option>
+                        <option>First</option>
+                    </select>
+                </div>
+            </div>
+            <button class="search-btn"><i class="ri-search-line"></i> Search Flights</button>
+        </section>
+
+        <!-- Itinerary Builder / Trip Overview -->
+        <section class="itinerary">
+            <h2>Your Trip Itinerary</h2>
+            <div class="itinerary-flight">
+                <img class="airline-logo" src="{% static 'core/img/airlines/airpeace.png' %}" alt="Air Peace">
+                <div class="flight-info">
+                    <div class="flight-route">Lagos (LOS) <i class="ri-arrow-right-line"></i> Accra (ACC)</div>
+                    <div class="flight-details">10:00 AM - 11:15 AM &nbsp; | &nbsp; Air Peace</div>
+                    <div class="airport-codes">LOS &rarr; ACC</div>
+                </div>
+                <div class="flight-price">$120</div>
+            </div>
+            <div class="itinerary-flight">
+                <img class="airline-logo" src="{% static 'core/img/airlines/kenya-airways.png' %}" alt="Kenya Airways">
+                <div class="flight-info">
+                    <div class="flight-route">Accra (ACC) <i class="ri-arrow-right-line"></i> Nairobi (NBO)</div>
+                    <div class="flight-details">2:00 PM - 8:30 PM &nbsp; | &nbsp; Kenya Airways</div>
+                    <div class="airport-codes">ACC &rarr; NBO</div>
+                </div>
+                <div class="flight-price">$350</div>
+            </div>
+            <div class="itinerary-flight">
+                <img class="airline-logo" src="{% static 'core/img/airlines/ethiopian.png' %}" alt="Ethiopian Airlines">
+                <div class="flight-info">
+                    <div class="flight-route">Nairobi (NBO) <i class="ri-arrow-right-line"></i> Cape Town (CPT)</div>
+                    <div class="flight-details">10:00 AM - 3:00 PM &nbsp; | &nbsp; Ethiopian Airlines</div>
+                    <div class="airport-codes">NBO &rarr; CPT</div>
+                </div>
+                <div class="flight-price">$420</div>
+            </div>
+            <ul class="itinerary-list">
+                <li>Layover: Nairobi, 3 hours</li>
+                <li>Hotel Check-in: 10:00 PM, Cape Town Central Hotel</li>
+                <li>Tour: Table Mountain, 9:00 AM next day</li>
+            </ul>
+        </section>
+
+        <!-- Add-ons and Extras -->
+        <section class="add-ons">
+            <h2>Add-ons & Extras</h2>
+            <ul class="add-ons-list">
+                <li>Hotel Recommendations</li>
+                <li>Airport Transfers</li>
+                <li>Car Rentals</li>
+                <li>Travel Insurance</li>
+                <li>Visa & Travel Document Reminders</li>
+            </ul>
+        </section>
+
+        <!-- Map & Weather -->
+        <section class="map-weather">
+            <div class="map-box">
+                <h3><i class="ri-map-pin-line"></i> Interactive Map</h3>
+                <div style="background:#b2ebf2;height:180px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#028A9E;">
+                    [Map Placeholder]
+                </div>
+                <small>See your flights, hotels, and saved places on the map.</small>
+            </div>
+            <div class="weather-box">
+                <h3><i class="ri-sun-cloudy-line"></i> Weather Forecast</h3>
+                <div style="background:#fff;height:90px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#028A9E;">
+                    [Weather Widget Placeholder]
+                </div>
+                <small>Check the weather for your destination.</small>
+            </div>
+        </section>
+
+        <!-- Destination Guide -->
+        <section class="destination-guide">
+            <h2>Destination Guide</h2>
+            <ul>
+                <li>Popular Attractions</li>
+                <li>Travel Tips & Local Events</li>
+                <li>Travel Restrictions & Advisories</li>
+            </ul>
+        </section>
+
+        <!-- Countdown / Timeline -->
+        <section class="countdown">
+            <div>
+                <span id="countdown-days" style="font-size:2em;font-weight:700;">5</span> days until your trip!
+            </div>
+            <div style="margin-top:0.7em;">
+                <i class="ri-calendar-check-line"></i> Check-in: July 28, 2025 &nbsp; | &nbsp;
+                <i class="ri-suitcase-line"></i> Packing Reminder &nbsp; | &nbsp;
+                <i class="ri-flight-takeoff-line"></i> Flight: July 26, 2025
+            </div>
+        </section>
+
+        <!-- Save & Share -->
+        <div class="save-share">
+            <button class="save-btn"><i class="ri-save-line"></i> Save Plan</button>
+            <button class="share-btn"><i class="ri-share-line"></i> Share</button>
+        </div>
+
+        <!-- Suggested Itineraries / Templates -->
+        <section class="itinerary">
+            <h2>Suggested Itineraries</h2>
+            <ul class="itinerary-list">
+                <li>Adventure: Safari & Hiking in Kenya</li>
+                <li>Business: 3-Day Conference in Johannesburg</li>
+                <li>Relaxation: Beach Escape in Zanzibar</li>
+            </ul>
+        </section>
+
+        <!-- Traveler Information -->
+        <section class="traveler-info">
+            <h2>Traveler Information</h2>
+            <div class="flight-search-row">
+                <div>
+                    <label for="passport">Passport Number</label>
+                    <input type="text" id="passport" placeholder="Passport Number">
+                </div>
+                <div>
+                    <label for="emergency">Emergency Contact</label>
+                    <input type="text" id="emergency" placeholder="Name & Phone">
+                </div>
+                <div>
+                    <label for="companions">Travel Companions</label>
+                    <input type="text" id="companions" placeholder="Names">
+                </div>
+            </div>
+        </section>
+
+        <!-- Notifications & Alerts -->
+        <section class="notifications">
+            <h2>Notifications & Alerts</h2>
+            <ul>
+                <li><i class="ri-alert-line" style="color:#028A9E;"></i> Flight delay: Lagos &rarr; Nairobi, +1hr</li>
+                <li><i class="ri-exchange-dollar-line" style="color:#028A9E;"></i> Currency rate update: 1 USD = 1,500 NGN</li>
+                <li><i class="ri-cloud-windy-line" style="color:#028A9E;"></i> Weather alert: Rain expected in Cape Town</li>
+            </ul>
+        </section>
+
+        <!-- Bonus Tools -->
+        <section class="tools">
+            <h2>Travel Tools</h2>
+            <ul class="tools-list">
+                <li>Budget Tracker</li>
+                <li>Packing Checklist</li>
+                <li>Currency Converter</li>
+                <li>Time Zone Helper</li>
+            </ul>
+        </section>
+    </div>
+</body>
+</html>

@@ -15,8 +15,14 @@ for user in User.objects.all():
 def home(request):
     return render(request, 'core/home.html')
 
+def visas(request):
+    return render(request, 'core/visas.html')
+
 def flights(request):
     return render(request, 'core/flights.html')
+
+def travel_planner(request):
+    return render(request, 'core/travel_planner.html')
 
 def about_us(request):
     return render(request, 'core/about_us.html')
@@ -130,3 +136,6 @@ def resend_code_view(request):
         )
         return JsonResponse({'success': True, 'message': 'Verification code resent.'})
     return JsonResponse({'success': False, 'message': 'Invalid request.'})
+
+def visa_application(request):
+    return render(request, 'core/visa_application.html')
