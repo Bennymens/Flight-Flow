@@ -297,9 +297,9 @@
     <div class="visa-slideshow-container">
         <!-- Navbar and logo on top of slideshow -->
         <div class="navbar-container">
-            <span class="logo">
+            <a href="{% url 'home' %}" class="logo" style="display:inline-block;">
                 <img src="{% static 'core/img/WhatsApp_Image_2025-06-19_at_11.15.24_815a1b9d-removebg-preview.png' %}" alt="Flight-Flow Logo">
-            </span>
+            </a>
             <button class="hamburger" id="mobileNavToggle" aria-label="Open navigation">
                 <i class="ri-menu-line"></i>
             </button>
@@ -330,10 +330,10 @@
                 </ul>
             </div>
         </div>
-        <img src="{% static 'core/img/beautiful-tourist-woman-holding-travel-suitcase-passport-with-tickets-with-smile-face-happy-positive-travel-concept-standing-blue-space.jpg' %}" 
-             class="visa-slide active">
-        <img src="{% static 'core/img/photo-glad-dark-skinned-curly-female-traveller-points-tickets-passport-rejoices-having-trip-abroad-summer-holidays.jpg' %}" 
-             class="visa-slide">
+        <!-- Slideshow images -->
+        <img src="{% static 'core/img/medium-shot-female-flight-attendant-studio.jpg' %}" class="visa-slide active">
+        <img src="{% static 'core/img/young-african-american-traveler-man-with-suitcase-holding-air-tickets-looking-them-with-confident-smile-face-satisfied.jpg' %}" class="visa-slide">
+        <img src="{% static 'core/img/photo-glad-dark-skinned-curly-female-traveller-points-tickets-passport-rejoices-having-trip-abroad-summer-holidays.jpg' %}" class="visa-slide">
         <div class="visa-slideshow-overlay"></div>
         <div class="visa-slideshow-content">
             <h1>Visa Information</h1>
@@ -351,21 +351,27 @@
     <h2 style="text-align:center;color:#028A9E;margin-top:48px;margin-bottom:0;">Visa Types</h2>
     <hr style="border:0;border-top:2px solid #e0f7fa;max-width:120px;margin:12px auto 32px auto;">
     <section class="visa-cards" style="display:flex;flex-wrap:wrap;gap:2em;justify-content:center;margin:40px 0;">
-        <div class="visa-card" style="background:#fff;border-radius:16px;box-shadow:0 4px 16px rgba(2,138,158,0.10);padding:2em 1.5em;max-width:320px;flex:1 1 260px;text-align:center;position:relative;transition:transform 0.2s,box-shadow 0.2s;">
-            <span class="badge" style="position:absolute;top:18px;right:18px;background:#ffe082;color:#a67c00;font-size:0.85em;padding:0.3em 0.8em;border-radius:12px;font-weight:600;">Popular</span>
-            <i class="ri-passport-line" style="font-size:2.5em;color:#028A9E;margin-bottom:0.5em;"></i>
-            <h3 style="color:#028A9E;margin-bottom:0.5em;">Tourist Visa</h3>
-            <p style="color:#333;font-size:1em;">Requirements, fees, and processing times for short-term travel.</p>
+        <div class="visa-card" style="background:#fff;border-radius:16px;box-shadow:0 4px 16px rgba(2,138,158,0.10);padding:0;max-width:320px;flex:1 1 260px;position:relative;overflow:hidden;min-height:260px;display:flex;flex-direction:column;">
+            <img src="{% static 'core/img/Tourist Visa.jpg' %}" alt="Tourist Visa" style="width:100%;height:180px;object-fit:cover;">
+            <div style="padding:1.5em 1.2em;">
+                <span class="badge" style="position:absolute;top:18px;right:18px;background:#ffe082;color:#a67c00;font-size:0.85em;padding:0.3em 0.8em;border-radius:12px;font-weight:600;">Popular</span>
+                <h3 style="margin-bottom:0.5em;">Tourist Visa</h3>
+                <p style="font-size:1em;">Requirements, fees, and processing times for short-term travel.</p>
+            </div>
         </div>
-        <div class="visa-card" style="background:#fff;border-radius:16px;box-shadow:0 4px 16px rgba(2,138,158,0.10);padding:2em 1.5em;max-width:320px;flex:1 1 260px;text-align:center;position:relative;transition:transform 0.2s,box-shadow 0.2s;">
-            <i class="ri-briefcase-4-line" style="font-size:2.5em;color:#028A9E;margin-bottom:0.5em;"></i>
-            <h3 style="color:#028A9E;margin-bottom:0.5em;">Business Visa</h3>
-            <p style="color:#333;font-size:1em;">Information for business travelers, conferences, and work trips.</p>
+        <div class="visa-card" style="background:#fff;border-radius:16px;box-shadow:0 4px 16px rgba(2,138,158,0.10);padding:0;max-width:320px;flex:1 1 260px;position:relative;overflow:hidden;min-height:260px;display:flex;flex-direction:column;">
+            <img src="{% static 'core/img/student visa.jpg' %}" alt="Student Visa" style="width:100%;height:180px;object-fit:cover;">
+            <div style="padding:1.5em 1.2em;">
+                <h3 style="margin-bottom:0.5em;">Student Visa</h3>
+                <p style="font-size:1em;">Guidance for students planning to study abroad in Africa.</p>
+            </div>
         </div>
-        <div class="visa-card" style="background:#fff;border-radius:16px;box-shadow:0 4px 16px rgba(2,138,158,0.10);padding:2em 1.5em;max-width:320px;flex:1 1 260px;text-align:center;position:relative;transition:transform 0.2s,box-shadow 0.2s;">
-            <i class="ri-graduation-cap-line" style="font-size:2.5em;color:#028A9E;margin-bottom:0.5em;"></i>
-            <h3 style="color:#028A9E;margin-bottom:0.5em;">Student Visa</h3>
-            <p style="color:#333;font-size:1em;">Guidance for students planning to study abroad in Africa.</p>
+        <div class="visa-card" style="background:#fff;border-radius:16px;box-shadow:0 4px 16px rgba(2,138,158,0.10);padding:0;max-width:320px;flex:1 1 260px;position:relative;overflow:hidden;min-height:260px;display:flex;flex-direction:column;">
+            <img src="{% static 'core/img/Business Visa.jpg' %}" alt="Business Visa" style="width:100%;height:180px;object-fit:cover;">
+            <div style="padding:1.5em 1.2em;">
+                <h3 style="margin-bottom:0.5em;">Business Visa</h3>
+                <p style="font-size:1em;">Information for business travelers, conferences, and work trips.</p>
+            </div>
         </div>
     </section>
 

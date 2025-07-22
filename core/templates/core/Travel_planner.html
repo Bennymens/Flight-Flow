@@ -23,12 +23,21 @@
             color: #028A9E;
             text-align: center;
         }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
         .flight-search, .itinerary, .add-ons, .map-weather, .destination-guide, .countdown, .tools, .traveler-info, .notifications {
+            animation: fadeInUp 0.7s;
             background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 2px 12px rgba(2,138,158,0.08);
+            border-radius: 18px;
+            box-shadow: 0 6px 24px rgba(2,138,158,0.10);
             margin-bottom: 2em;
             padding: 2em 1.5em;
+            transition: box-shadow 0.2s;
+        }
+        .flight-search:hover, .itinerary:hover, .add-ons:hover, .map-weather:hover, .destination-guide:hover, .countdown:hover, .tools:hover, .traveler-info:hover, .notifications:hover {
+            box-shadow: 0 12px 32px rgba(2,138,158,0.16);
         }
         .flight-search label, .traveler-info label {
             font-weight: 500;
@@ -76,10 +85,16 @@
             display: flex;
             align-items: center;
             gap: 1em;
-            background: #e0f7fa;
-            border-radius: 10px;
-            padding: 1em;
-            margin-bottom: 1em;
+            background: linear-gradient(90deg,#e0f7fa 70%,#fff 100%);
+            border-radius: 14px;
+            box-shadow: 0 2px 12px rgba(2,138,158,0.10);
+            padding: 1.2em 1.5em;
+            margin-bottom: 1.5em;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .itinerary-flight:hover {
+            box-shadow: 0 8px 24px rgba(2,138,158,0.18);
+            transform: translateY(-2px) scale(1.02);
         }
         .itinerary-flight img.airline-logo {
             width: 48px;
@@ -200,6 +215,47 @@
         .save-btn:hover, .share-btn:hover {
             background: #025e6e;
         }
+        /* Hero Section: full-width, flush to top, rectangle */
+        .hero-section {
+            position: relative;
+            width: 100vw;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            height: 450px; /* Increased height */
+            min-height: 320px;
+            overflow: hidden;
+            border-radius: 0 0 18px 18px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+        .hero-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            filter: brightness(0.7);
+        }
+        .hero-section .hero-content {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+        .hero-section .hero-content h1 {
+            font-size: 2.8em;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 0.3em;
+        }
+        .hero-section .hero-content p {
+            font-size: 1.2em;
+        }
         @media (max-width: 900px) {
             .planner-container {
                 padding: 1em 0.2em;
@@ -215,6 +271,34 @@
     </style>
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" style="width:100vw;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;position:relative;z-index:10;display:flex;align-items:center;justify-content:center;background:#fff;box-shadow:0 2px 12px rgba(2,138,158,0.07);padding:0.7em 0;">
+        <div style="max-width:1100px;width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 2em;">
+            <a href="{% url 'home' %}" style="display:flex;align-items:center;text-decoration:none;">
+                <img src="{% static 'core/img/WhatsApp_Image_2025-06-19_at_11.15.24_815a1b9d-removebg-preview.png' %}" alt="Flight-Flow Logo" style="height:38px;width:auto;margin-right:0.7em;">
+                <span style="font-weight:700;font-size:1.25em;color:#028A9E;">Flight-Flow</span>
+            </a>
+            <ul style="list-style:none;display:flex;gap:2em;margin:0;padding:0;">
+                <li><a href="{% url 'home' %}" style="color:#028A9E;text-decoration:none;font-weight:500;">Home</a></li>
+                <li><a href="{% url 'visas' %}" style="color:#028A9E;text-decoration:none;font-weight:500;">Visas</a></li>
+                <li><a href="{% url 'flights' %}" style="color:#028A9E;text-decoration:none;font-weight:500;">Flights</a></li>
+                <li><a href="{% url 'Travel_planner' %}" style="color:#028A9E;text-decoration:none;font-weight:500;">Travel Planner</a></li>
+                <li><a href="{% url 'about_us' %}" style="color:#028A9E;text-decoration:none;font-weight:500;">About Us</a></li>
+                <li><a href="{% url 'contact_us' %}" style="color:#028A9E;text-decoration:none;font-weight:500;">Contact Us</a></li>
+                <li><a href="{% url 'login' %}" style="color:#028A9E;text-decoration:none;font-weight:500;">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section OUTSIDE the container -->
+    <div class="hero-section">
+      <img src="{% static 'core/img/beautiful-tropical-beach-sea-ocean-with-coconut-palm-tree-umbrella-chair-blue-sky.jpg' %}" alt="Travel Africa">
+      <div class="hero-content">
+        <h1>Plan Your African Adventure</h1>
+        <p>Flights, hotels, activities & more — all in one place</p>
+      </div>
+    </div>
+
     <div class="planner-container">
         <h1>Travel Planner</h1>
 
