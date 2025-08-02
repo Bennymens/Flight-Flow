@@ -1,19 +1,202 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Flight-Flow | Flights</title>
+    <meta charset="UTF-8">
+    <title>Flight Results | Flight-Flow</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f5fafd;
+            margin: 0;
+            color: #1A1A1A;
+        }
+        .navbar {
+            width: 100vw;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            position: relative;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            box-shadow: 0 2px 12px rgba(2,138,158,0.07);
+            padding: 0.7em 0;
+        }
+        .navbar > div {
+            max-width: 1100px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2em;
+        }
+        .navbar a {
+            color: #028A9E;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.08em;
+        }
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 2em;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar img {
+            height: 38px;
+            width: auto;
+            margin-right: 0.7em;
+        }
+        .navbar .logo-text {
+            font-weight: 700;
+            font-size: 1.25em;
+            color: #028A9E;
+        }
+        .results-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 2em 1em;
+        }
+        .flight-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(2,138,158,0.10);
+            display: flex;
+            align-items: center;
+            gap: 1.5em;
+            padding: 1.5em 1.2em;
+            margin-bottom: 1.5em;
+            transition: box-shadow 0.2s;
+        }
+        .flight-card:hover {
+            box-shadow: 0 12px 32px rgba(2,138,158,0.16);
+        }
+        .airline-logo {
+            width: 54px;
+            height: 54px;
+            border-radius: 12px;
+            background: #fff;
+            object-fit: contain;
+            box-shadow: 0 2px 8px rgba(2,138,158,0.08);
+        }
+        .flight-info {
+            flex: 1;
+        }
+        .flight-route {
+            font-weight: 600;
+            color: #028A9E;
+            font-size: 1.15em;
+        }
+        .flight-times {
+            font-size: 1em;
+            color: #333;
+        }
+        .flight-airline {
+            font-size: 0.98em;
+            color: #666;
+        }
+        .flight-price {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #009688;
+            margin-right: 1.5em;
+        }
+        .compare-btn {
+            background: linear-gradient(90deg, #028A9E 60%, #00bfae 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.7em 1.5em;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .compare-btn:hover {
+            background: linear-gradient(90deg, #00bfae 60%, #028A9E 100%);
+            transform: translateY(-2px) scale(1.03);
+        }
+        @media (max-width: 700px) {
+            .navbar > div { padding: 0 0.5em; }
+            .navbar ul { gap: 1em; }
+            .results-container { padding: 1em 0.2em; }
+            .flight-card { flex-direction: column; align-items: flex-start; gap: 0.8em; }
+            .flight-price { margin-right: 0; margin-top: 0.5em; }
+        }
+    </style>
 </head>
 <body>
-    <h1>Find Flights</h1>
-    <nav>
-        <a href="{% url 'home' %}">Home</a> |
-        <a href="{% url 'visas' %}">Visas</a> |
-        <a href="{% url 'flights' %}">Flights</a> |
-        <a href="{% url 'Travel_planner' %}">Travel Planner</a> |
-        <a href="{% url 'about_us' %}">About Us</a> |
-        <a href="{% url 'contact_us' %}">Contact Us</a> |
-        <a href="{% url 'login' %}">Login</a>
+    <!-- Navigation Bar (like homepage) -->
+    <nav class="navbar">
+        <div>
+            <a href="{% url 'home' %}" style="display:flex;align-items:center;text-decoration:none;">
+                <img src="{% static 'core/img/WhatsApp_Image_2025-06-19_at_11.15.24_815a1b9d-removebg-preview.png' %}" alt="Flight-Flow Logo">
+                <span class="logo-text">Flight-Flow</span>
+            </a>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'visas' %}">Visas</a></li>
+                <li><a href="{% url 'flights' %}">Flights</a></li>
+                <li><a href="{% url 'Travel_planner' %}">Travel Planner</a></li>
+                <li><a href="{% url 'about_us' %}">About Us</a></li>
+                <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+            </ul>
+        </div>
     </nav>
-    <p>Search and compare flights across Africa.</p>
+
+    <div class="results-container">
+        <h1 style="color:#028A9E;text-align:center;margin-bottom:2em;">Flight Results</h1>
+        <p style="text-align:center;color:#555;">Search and compare flights across Africa.</p>
+        <!-- Dummy flight cards -->
+        <div class="flight-card">
+            <img src="{% static 'core/img/airlines/airpeace.png' %}" alt="Air Peace" class="airline-logo">
+            <div class="flight-info">
+                <div class="flight-route">Lagos (LOS) <i class="ri-arrow-right-line"></i> Accra (ACC)</div>
+                <div class="flight-times">Departure: 10:00 AM | Arrival: 11:15 AM | 10 Sep 2025</div>
+                <div class="flight-airline">Air Peace</div>
+            </div>
+            <div class="flight-price">$220</div>
+            <button class="compare-btn">Compare</button>
+        </div>
+        <div class="flight-card">
+            <img src="{% static 'core/img/airlines/ethiopian.png' %}" alt="Ethiopian Airlines" class="airline-logo">
+            <div class="flight-info">
+                <div class="flight-route">Accra (ACC) <i class="ri-arrow-right-line"></i> Nairobi (NBO)</div>
+                <div class="flight-times">Departure: 1:00 PM | Arrival: 5:30 PM | 12 Sep 2025</div>
+                <div class="flight-airline">Ethiopian Airlines</div>
+            </div>
+            <div class="flight-price">$350</div>
+            <button class="compare-btn">Compare</button>
+        </div>
+        <div class="flight-card">
+            <img src="{% static 'core/img/airlines/kenyaairways.png' %}" alt="Kenya Airways" class="airline-logo">
+            <div class="flight-info">
+                <div class="flight-route">Nairobi (NBO) <i class="ri-arrow-right-line"></i> Cape Town (CPT)</div>
+                <div class="flight-times">Departure: 8:00 AM | Arrival: 1:45 PM | 15 Sep 2025</div>
+                <div class="flight-airline">Kenya Airways</div>
+            </div>
+            <div class="flight-price">$480</div>
+            <button class="compare-btn">Compare</button>
+        </div>
+        <div class="flight-card">
+            <img src="{% static 'core/img/airlines/arikair.png' %}" alt="Arik Air" class="airline-logo">
+            <div class="flight-info">
+                <div class="flight-route">Lagos (LOS) <i class="ri-arrow-right-line"></i> Accra (ACC)</div>
+                <div class="flight-times">Departure: 1:00 PM | Arrival: 3:00 PM | 18 Sep 2025</div>
+                <div class="flight-airline">Arik Air</div>
+            </div>
+            <div class="flight-price">$300</div>
+            <button class="compare-btn">Compare</button>
+        </div>
+        <!-- Add more dummy cards as needed -->
+    </div>
 </body>
 </html>

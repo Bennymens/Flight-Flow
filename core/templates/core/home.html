@@ -870,6 +870,78 @@
         display: block;
     }
 }
+
+/* Discover Section Styles */
+.discover-section {
+    margin: 3em 0;
+}
+.discover-title {
+    text-align: center;
+    font-size: 2.5em;
+    color: #028A9E;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 1.5em;
+}
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2em;
+}
+.card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(2,138,158,0.10);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+.card:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 12px 32px rgba(2,138,158,0.16);
+}
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+.card-content {
+    padding: 1.2em;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.card-content h2, .card-content h3 {
+    margin-bottom: 0.5em;
+    color: #028A9E;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+.price {
+    font-weight: 700;
+    color: #009688;
+    font-size: 1.2em;
+    margin-bottom: 0.3em;
+}
+.info {
+    color: #666;
+    font-size: 0.98em;
+    margin-top: 0.5em;
+}
+@media (max-width: 700px) {
+    .discover-title {
+        font-size: 1.6em;
+    }
+    .card-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2em;
+    }
+    .card img {
+        height: 120px;
+    }
+}
     </style>
 </head>
 <body>
@@ -1198,6 +1270,13 @@
     </div>
 </div>
 
+<div id="dummy-results" style="display:none; margin:2em auto; max-width:900px;">
+  <h2 style="color:#028A9E; text-align:center;">Flight Results</h2>
+  <div id="results-list">
+    <!-- Dummy results will appear here -->
+  </div>
+</div>
+
 <script>
     // Slideshow functionality
     document.addEventListener('DOMContentLoaded', function() {
@@ -1340,6 +1419,67 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+});
+
+document.querySelector('.flight-search-form form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Dummy data array
+    const dummyFlights = [
+        {
+            airline: "Air Peace",
+            from: "Lagos",
+            to: "Accra",
+            depart: "2025-09-10 09:00",
+            arrive: "2025-09-10 10:15",
+            price: "$220"
+        },
+        {
+            airline: "Ethiopian Airlines",
+            from: "Accra",
+            to: "Nairobi",
+            depart: "2025-09-12 13:00",
+            arrive: "2025-09-12 17:30",
+            price: "$350"
+        },
+        {
+            airline: "Kenya Airways",
+            from: "Nairobi",
+            to: "Cape Town",
+            depart: "2025-09-15 08:00",
+            arrive: "2025-09-15 13:45",
+            price: "$480"
+        }
+    ];
+
+    // Build HTML for results
+    let html = '';
+    dummyFlights.forEach(flight => {
+        html += `
+        <div style="background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(2,138,158,0.10);padding:1.2em 1.5em;margin-bottom:1.2em;display:flex;align-items:center;gap:1.5em;">
+            <div style="flex:1;">
+                <div style="font-weight:600;color:#028A9E;font-size:1.1em;">
+                    ${flight.from} <i class="ri-arrow-right-line"></i> ${flight.to}
+                </div>
+                <div style="font-size:0.98em;color:#333;">
+                    ${flight.depart} &rarr; ${flight.arrive}
+                </div>
+                <div style="font-size:0.98em;color:#666;">
+                    Airline: ${flight.airline}
+                </div>
+            </div>
+            <div style="font-weight:700;color:#009688;font-size:1.15em;">
+                ${flight.price}
+            </div>
+        </div>
+        `;
+    });
+
+    document.getElementById('results-list').innerHTML = html;
+    document.getElementById('dummy-results').style.display = 'block';
+
+    // Optionally scroll to results
+    document.getElementById('dummy-results').scrollIntoView({behavior: "smooth"});
 });
     </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
