@@ -86,15 +86,15 @@
         .hero-title {
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
-            font-size: 3.7em;
-            margin-top: 1.5em;
+            font-size: 2.2em; /* was 3.7em */
+            margin-top: 1.2em;
             margin-bottom: 0.5em;
             color: #f5f5f5; /* Sky Teal */
         }
         .subtitle {
             font-family: 'Poppins', sans-serif;
             font-weight: 600;
-            font-size: 1.3em;
+            font-size: 1.1em; /* was 1.3em */
             color: #f1f1f1; /* Charcoal Grey */
             margin-bottom: 2em;
         }
@@ -378,8 +378,8 @@
 .why-choose h2 {
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
-    font-size: 2.5em;
-    margin-bottom: 1.5em;
+    font-size: 1.7em; /* was 2.5em */
+    margin-bottom: 1em;
     color: #028A9E;
 }
 
@@ -435,7 +435,7 @@
 
 .destinations-section h2 {
   color: #008080;
-  font-size: 2rem;
+  font-size: 1.7em; /* was 2rem */
   margin-bottom: 30px;
 }
 
@@ -502,7 +502,7 @@
 
 .gallery-section h2 {
   color: #008080;
-  font-size: 2rem;
+  font-size: 1.7em; /* was 2rem */
   margin-bottom: 30px;
 }
 
@@ -942,6 +942,93 @@
         height: 120px;
     }
 }
+
+.klm-cards-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-bottom: 2em;
+}
+.klm-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 340px;
+  background: none;
+  border-radius: 12px;
+  box-shadow: none;
+  margin-bottom: 24px;
+}
+.klm-image-wrapper {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(2,138,158,0.10);
+  transition: box-shadow 0.3s;
+}
+.klm-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(.4,2,.6,1);
+}
+.klm-card:hover .klm-image-wrapper img {
+  transform: scale(1.08);
+}
+.klm-card-info {
+  margin-top: 18px;
+  width: 100%;
+  text-align: center;
+}
+.klm-country {
+  font-size: 1.08em; /* was 1.25em */
+  font-weight: 600;
+  color: #028A9E;
+  margin-bottom: 6px;
+}
+.klm-country span {
+  color: #666;
+  font-size: 0.98em;
+  font-weight: 400;
+}
+.klm-price {
+  font-size: 1em; /* was 1.08em */
+  color: #009688;
+  margin-bottom: 12px;
+}
+.klm-price strong {
+  color: #009688;
+}
+.klm-explore-btn {
+  background: #e6f0f6;
+  color: #028A9E;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 24px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 4px;
+}
+.klm-explore-btn:hover {
+  background: #d0e4f1;
+}
+@media (max-width: 900px) {
+  .klm-cards-container {
+    gap: 20px;
+  }
+  .klm-card {
+    width: 90vw;
+    min-width: 220px;
+    max-width: 340px;
+  }
+  .klm-image-wrapper {
+    height: 160px;
+  }
+}
     </style>
 </head>
 <body>
@@ -1097,43 +1184,31 @@
   </div>
 </section>
 <!-- Explore Destinations Section -->
-<section class="destinations-section">
-  <h2>The world is yours to Discover</h2>
-  <div class="subtitle" style="color: #444; font-size: 1.1rem; margin-bottom: 28px;">
-    Discover the best of Africa with our top destinations
-  </div>
-  <div class="destinations-grid">
-    <div class="destination-card">
-      <img src="{% static 'core/img/Nairobi.jpg' %}" alt="Nairobi">
-      <h3>Flights to Nairobi</h3>
-      <span class="price" style="font-weight:700;color:#009688;font-size:1.15em;">from $393</span>
-      <p class="info" style="color:#666;">Return, from Kenya, Sep 2025</p>
+<section class="destinations-section" style="text-align:center; padding:48px 0;">
+  <h2 style="color:#028A9E; font-size:1.7em; margin-bottom:30px;">The world is yours to Discover</h2>
+  <div class="klm-cards-container">
+    <!-- Card 1 -->
+    <div class="klm-card">
+      <div class="klm-image-wrapper">
+        <img src="{% static 'core/img/Accra.jpg' %}" alt="Accra, Ghana">
+      </div>
+      <div class="klm-card-info">
+        <div class="klm-country">Accra <span>(Ghana)</span></div>
+        <div class="klm-price">Round trip from <strong>$400</strong></div>
+      </div>
     </div>
-    <div class="destination-card">
-      <img src="{% static 'core/img/lagos.jpg' %}" alt="Lagos">
-      <h3>Flights to Lagos</h3>
-      <span class="price" style="font-weight:700;color:#009688;font-size:1.15em;">from $410</span>
-      <p class="info" style="color:#666;">Return, from Ghana, Oct 2025</p>     
-    </div>
-    <div class="destination-card">
-      <img src="{% static 'core/img/KIGALI.jpg' %}" alt="Kigali">
-      <h3>Flights to Kigali</h3>
-      <span class="price" style="font-weight:700;color:#009688;font-size:1.15em;">from $370</span>
-      <p class="info" style="color:#666;">Return, from Nigeria, Nov 2025</p>
-    </div>
-    <div class="destination-card">
-      <img src="{% static 'core/img/Abidjan.png' %}" alt="Abidjan">
-      <h3>Flights to Abidjan</h3>
-      <span class="price" style="font-weight:700;color:#009688;font-size:1.15em;">from $420</span>
-      <p class="info" style="color:#666;">Return, from Senegal, Sep 2025</p>
-    </div>
-    <div class="destination-card">
-      <img src="{% static 'core/img/Accra.jpg' %}" alt="Accra">
-      <h3>Flights to Accra</h3>
-      <span class="price" style="font-weight:700;color:#009688;font-size:1.15em;">from $385</span>
-      <p class="info" style="color:#666;">Return, from Ivory Coast, Aug 2025</p>
+    <!-- Card 2 -->
+    <div class="klm-card">
+      <div class="klm-image-wrapper">
+        <img src="{% static 'core/img/Nairobi.jpg' %}" alt="Nairobi, Kenya">
+      </div>
+      <div class="klm-card-info">
+        <div class="klm-country">Nairobi <span>(Kenya)</span></div>
+        <div class="klm-price">Round trip from <strong>$393</strong></div>
+      </div>
     </div>
   </div>
+  <button class="klm-explore-btn" style="margin-top:18px;">Explore all deals</button>
 </section>
 <section class="gallery-section">
   <h2>Gallery</h2>
