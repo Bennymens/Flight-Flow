@@ -110,9 +110,10 @@
             z-index: 10;
             display: flex;
             align-items: center;
-            justify-content: flex-start; /* Move everything to the left */
-            padding: 0.5em 1em 0 1em;   /* Equal left/right padding */
+            justify-content: flex-start;
+            padding: 0.5em 1em 0 1em;
             background: transparent;
+            gap: 15.0em; /* Add this for space between logo and navlinks */
         }
         .logo img {
             max-height: 110px;
@@ -122,11 +123,10 @@
         }
         .nav-links {
             display: flex;
-            justify-content: flex-start; /* Nav links start after logo */
+            justify-content: flex-start;
             align-items: center;
             background: transparent;
-            margin-left: 45em; /* Space between logo and nav links */
-            flex: 1;
+            /* Remove flex: 1; */
         }
         .nav-links ul {
             display: flex;

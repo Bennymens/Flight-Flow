@@ -94,7 +94,7 @@
         .subtitle {
             font-family: 'Poppins', sans-serif;
             font-weight: 600;
-            font-size: 1.1em; /* was 1.3em */
+            font-size: 1em !important;
             color: #f1f1f1; /* Charcoal Grey */
             margin-bottom: 2em;
         }
@@ -108,12 +108,12 @@
         .cta-btn {
             font-family: 'Poppins', sans-serif;
             font-weight: 500;
-            font-size: 1.1em;
+            font-size: 0.98em !important;
             background: #028A9E; /* Sky Teal */
             color: #fff;
             border: none;
             border-radius: 4px;
-            padding: 0.8em 2em;
+            padding: 0.7em 1.5em !important;
             cursor: pointer;
             transition: background 0.2s, color 0.2s;
             box-shadow: 0 2px 8px rgba(2,138,158,0.08);
@@ -378,7 +378,7 @@
 .why-choose h2 {
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
-    font-size: 1.7em; /* was 2.5em */
+    font-size: 1.15em !important;
     margin-bottom: 1em;
     color: #028A9E;
 }
@@ -414,7 +414,7 @@
 .feature-box h3 {
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
-    font-size: 1.5em;
+    font-size: 1em !important;
     margin-bottom: 0.5em;
     color: #111;
 }
@@ -422,7 +422,7 @@
 .feature-box p {
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
-    font-size: 1em;
+    font-size: 0.93em !important;
     color: #333;
     line-height: 1.4;
 }
@@ -545,7 +545,7 @@
   padding: 14px 0 10px 0;
   opacity: 0;
   transition: opacity 0.3s;
-  font-size: 1.1em;
+  font-size: 0.95em !important;
   width: 100%;
   text-align: center;
   letter-spacing: 1px;
@@ -710,7 +710,7 @@
   text-align: center;
   padding: 36px 0 24px 0;
   font-family: 'Poppins', sans-serif;
-  font-size: 1.05em;
+  font-size: 0.95em !important;
   letter-spacing: 0.5px;
   margin-top: 0;
   border-radius: 0 0 18px 18px;
@@ -883,6 +883,16 @@
     letter-spacing: 2px;
     margin-bottom: 1.5em;
 }
+.discover-title span {
+  display: block;
+  font-size: 2em;
+  font-weight: bold;
+  letter-spacing: 2px;
+  border-bottom: 2px solid #028A9E;
+  width: fit-content;
+  margin: 0 auto;
+  margin-top: 5px;
+}
 .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -982,22 +992,26 @@
   width: 100%;
   text-align: center;
 }
+
 .klm-country {
-  font-size: 1.08em; /* was 1.25em */
+  font-size: 0.92em !important;
   font-weight: 600;
   color: #028A9E;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
+
 .klm-country span {
   color: #666;
-  font-size: 0.98em;
+  font-size: 0.92em;
   font-weight: 400;
 }
+
 .klm-price {
-  font-size: 1em; /* was 1.08em */
+  font-size: 0.89em !important;
   color: #009688;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
+
 .klm-price strong {
   color: #009688;
 }
@@ -1006,8 +1020,8 @@
   color: #028A9E;
   border: none;
   border-radius: 6px;
-  padding: 10px 24px;
-  font-size: 1em;
+  padding: 7px 16px !important;
+  font-size: 0.95em !important;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.3s;
@@ -1028,6 +1042,88 @@
   .klm-image-wrapper {
     height: 160px;
   }
+}
+
+/* Explore Destinations Section: Staggered Card Grid */
+.destinations-section {
+  text-align: center;
+  padding: 40px 20px;
+  background: #fff;
+}
+
+.destinations-section h2 {
+  color: #008080;
+  font-size: 1.7em; /* was 2rem */
+  margin-bottom: 30px;
+}
+
+.discover-title {
+    text-align: center;
+    font-size: 1.5em;
+    color: #028A9E;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 1.5em;
+}
+.discover-title span {
+  display: block;
+  font-size: 2em;
+  font-weight: bold;
+  letter-spacing: 2px;
+  border-bottom: 2px solid #028A9E;
+  width: fit-content;
+  margin: 0 auto;
+  margin-top: 5px;
+}
+.discover-card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 260px;
+    gap: 20px;
+    padding: 0 5vw 50px;
+}
+.discover-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(2,138,158,0.10);
+  background: #fff;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.discover-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s cubic-bezier(.4,2,.6,1);
+}
+.discover-card:hover img {
+  transform: scale(1.07);
+}
+.discover-card-content {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 16px 14px 12px 14px;
+  color: #fff;
+  background: linear-gradient(to top, rgba(2,30,60,0.92), rgba(2,30,60,0.0));
+  text-align: left;
+}
+.discover-card-content h3 {
+  margin: 0 0 2px 0;
+  font-size: 1.08em;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.discover-price {
+  font-size: 1em;
+  font-weight: 700;
+  margin: 2px 0 2px 0;
+  color: #F7C948;
+}
+.discover-details {
+  font-size: 0.9em;
+  color: #f1f1f1;
 }
     </style>
 </head>
@@ -1184,31 +1280,61 @@
   </div>
 </section>
 <!-- Explore Destinations Section -->
-<section class="destinations-section" style="text-align:center; padding:48px 0;">
-  <h2 style="color:#028A9E; font-size:1.7em; margin-bottom:30px;">The world is yours to Discover</h2>
-  <div class="klm-cards-container">
-    <!-- Card 1 -->
-    <div class="klm-card">
-      <div class="klm-image-wrapper">
-        <img src="{% static 'core/img/Accra.jpg' %}" alt="Accra, Ghana">
-      </div>
-      <div class="klm-card-info">
-        <div class="klm-country">Accra <span>(Ghana)</span></div>
-        <div class="klm-price">Round trip from <strong>$400</strong></div>
+<section class="destinations-section" style="background:#fff;">
+  <div class="discover-title" style="text-align:center; font-size:1.5em; color:#028A9E; font-weight:700; letter-spacing:2px; margin-bottom:1.5em;">
+    The world is yours to  
+    <span style="display:block;font-size:2em;font-weight:bold;letter-spacing:2px;border-bottom:2px solid #028A9E;width:fit-content;margin:0 auto;margin-top:5px;">DISCOVER</span>
+  </div>
+  <div class="discover-card-grid" style="display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:260px;gap:20px;padding:0 5vw 50px;">
+    <div class="discover-card tall" style="grid-row:span 2;">
+      <img src="{% static 'core/img/Nairobi.jpg' %}" alt="Nairobi">
+      <div class="discover-card-content">
+        <h3>Flights to Nairobi</h3>
+        <div class="discover-price">from <strong>$393</strong></div>
+        <div class="discover-details">Return, from Kenya, Sep 2025</div>
       </div>
     </div>
-    <!-- Card 2 -->
-    <div class="klm-card">
-      <div class="klm-image-wrapper">
-        <img src="{% static 'core/img/Nairobi.jpg' %}" alt="Nairobi, Kenya">
+    <div class="discover-card">
+      <img src="{% static 'core/img/Accra.jpg' %}" alt="Accra">
+      <div class="discover-card-content">
+        <h3>Flights to Accra</h3>
+        <div class="discover-price">from <strong>$400</strong></div>
+        <div class="discover-details">Return, from Ghana, Oct 2025</div>
       </div>
-      <div class="klm-card-info">
-        <div class="klm-country">Nairobi <span>(Kenya)</span></div>
-        <div class="klm-price">Round trip from <strong>$393</strong></div>
+    </div>
+    <div class="discover-card">
+      <img src="{% static 'core/img/KIGALI.jpg' %}" alt="Kigali">
+      <div class="discover-card-content">
+        <h3>Flights to Kigali</h3>
+        <div class="discover-price">from <strong>$370</strong></div>
+        <div class="discover-details">Return, from Nigeria, Nov 2025</div>
+      </div>
+    </div>
+    <div class="discover-card">
+      <img src="{% static 'core/img/Abidjan.png' %}" alt="Abidjan">
+      <div class="discover-card-content">
+        <h3>Flights to Abidjan</h3>
+        <div class="discover-price">from <strong>$420</strong></div>
+        <div class="discover-details">Return, from Senegal, Sep 2025</div>
+      </div>
+    </div>
+    <div class="discover-card">
+      <img src="{% static 'core/img/lagos.jpg' %}" alt="Lagos">
+      <div class="discover-card-content">
+        <h3>Flights to Lagos</h3>
+        <div class="discover-price">from <strong>$410</strong></div>
+        <div class="discover-details">Return, from Ghana, Oct 2025</div>
+      </div>
+    </div>
+    <div class="discover-card">
+      <img src="{% static 'core/img/Cairo.jpg' %}" alt="Cairo">
+      <div class="discover-card-content">
+        <h3>Flights to Cairo</h3>
+        <div class="discover-price">from <strong>$510</strong></div>
+        <div class="discover-details">Return, from Nigeria, Dec 2025</div>
       </div>
     </div>
   </div>
-  <button class="klm-explore-btn" style="margin-top:18px;">Explore all deals</button>
 </section>
 <section class="gallery-section">
   <h2>Gallery</h2>
