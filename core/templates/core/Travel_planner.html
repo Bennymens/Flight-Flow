@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Travel Planner | Flight-Flow</title>
+    <title>Travel Planner | Flight Flow</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
@@ -223,8 +223,8 @@
             right: 50%;
             margin-left: -50vw;
             margin-right: -50vw;
-            height: 450px; /* Increased height */
-            min-height: 320px;
+            height: 600px; /* Increased height */
+            min-height: 400px;
             overflow: hidden;
             border-radius: 0 0 18px 18px;
             display: flex;
@@ -267,36 +267,159 @@
             .africa-gallery {
                 grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             }
+            .discover-card-masonry {
+                column-count: 1;
+            }
+        }
+        .discover-card-masonry {
+            column-count: 2;
+            column-gap: 24px;
+            padding: 0 5vw 30px;
+        }
+        .discover-card {
+            background: #f5fafd;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(2,138,158,0.08);
+            display: inline-block;
+            margin-bottom: 24px;
+            width: 100%;
+        }
+        .discover-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+        .discover-card-content {
+            padding: 1em;
+        }
+        .discover-card-content h3 {
+            margin: 0 0 2px 0; /* less space below heading */
+            font-size: 15px;
+            font-weight: 500;
+        }
+        .discover-card-content p {
+            margin: 0 0 2px 0; /* less space below each line */
+            font-size: 12px;
+        }
+        .discover-price {
+            color: #028A9E;
+        }
+        .discover-details {
+            color: #666;
+        }
+        /* New styles for masonry section */
+        .discover-title {
+            margin: 30px 50px 10px;
+            font-size: 20px;
+        }
+        .discover-title span {
+            display: block;
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            border-bottom: 2px solid #028A9E;
+            width: fit-content;
+            margin-top: 5px;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: 250px;
+            gap: 20px;
+            padding: 0 50px 50px;
+            grid-auto-flow: dense;
+        }
+        .card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            background: #f5fafd;
+            transition: box-shadow 0.25s, transform 0.25s;
+        }
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s cubic-bezier(.4,2,.6,1);
+        }
+        .card-content {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 14px;
+            color: white;
+            background: linear-gradient(to top, rgba(0, 33, 79, 0.92), rgba(0, 33, 79, 0.18));
+        }
+        .card-content h3 {
+            margin: 0 0 2px 0; /* less space below heading */
+            font-size: 15px;
+            font-weight: 500;
+        }
+        .card-content p {
+            margin: 0 0 2px 0; /* less space below each line */
+            font-size: 12px;
+        }
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0 0 2px 0;
+            text-decoration: underline; /* underline the price */
+            text-underline-offset: 3px;
+        }
+        .details {
+            font-size: 11px;
+            opacity: 0.9;
+            margin: 0;
+        }
+        .tall {
+            grid-row: span 2;
+        }
+        .card:hover {
+            box-shadow: 0 8px 32px rgba(2,138,158,0.18);
+        }
+        .card:hover img {
+            transform: scale(1.07);
+        }
+        @media (max-width: 900px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 250px;
+                padding: 0 10px 30px;
+            }
+            .title {
+                margin: 30px 10px 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar" style="width:100vw;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;position:relative;z-index:10;display:flex;align-items:center;justify-content:center;background:#fff;box-shadow:0 2px 12px rgba(2,138,158,0.07);padding:0.7em 0;">
-        <div style="max-width:1100px;width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 2em;">
-            <a href="{% url 'home' %}" style="display:flex;align-items:center;text-decoration:none;">
-                <img src="{% static 'core/img/WhatsApp_Image_2025-06-19_at_11.15.24_815a1b9d-removebg-preview.png' %}" alt="Flight-Flow Logo" style="height:38px;width:auto;margin-right:0.7em;">
-                <span style="font-weight:700;font-size:1.25em;color:#028A9E;">Flight-Flow</span>
-            </a>
-            <ul style="list-style:none;display:flex;gap:2em;margin:0;padding:0;">
-                <li><a href="{% url 'home' %}" style="color:#028A9E;text-decoration:none;font-weight:500;">Home</a></li>
-                <li><a href="{% url 'visas' %}" style="color:#028A9E;text-decoration:none;font-weight:500;">Visas</a></li>
-                <li><a href="{% url 'flights' %}" style="color:#028A9E;text-decoration:none;font-weight:500;">Flights</a></li>
-                <li><a href="{% url 'Travel_planner' %}" style="color:#028A9E;text-decoration:none;font-weight:500;">Travel Planner</a></li>
-                <li><a href="{% url 'about_us' %}" style="color:#028A9E;text-decoration:none;font-weight:500;">About Us</a></li>
-                <li><a href="{% url 'contact_us' %}" style="color:#028A9E;text-decoration:none;font-weight:500;">Contact Us</a></li>
-                <li><a href="{% url 'login' %}" style="color:#028A9E;text-decoration:none;font-weight:500;">Login</a></li>
-            </ul>
+    <!-- Hero Section with Navigation Bar INSIDE -->
+    <div class="hero-section" style="position:relative;">
+        <img src="{% static 'core/img/beautiful-tropical-beach-sea-ocean-with-coconut-palm-tree-umbrella-chair-blue-sky.jpg' %}" alt="Travel Africa">
+        <!-- Navigation Bar moved inside hero-section -->
+        <nav class="navbar" style="width:100%;position:absolute;top:0;left:0;z-index:10;display:flex;align-items:flex-start;justify-content:center;background:transparent;box-shadow:none;padding:0.2em 0 0 0;">
+            <div style="max-width:1100px;width:100%;display:flex;align-items:flex-start;justify-content:space-between;padding:0 2em;">
+                <a href="{% url 'home' %}" style="display:flex;align-items:center;text-decoration:none;">
+                    <img src="{% static 'core/img/white.png' %}" alt="Flight-Flow Logo" style="height:90px;width:auto;margin-right:0.7em;">
+                </a>
+                <ul style="list-style:none;display:flex;gap:2em;margin:0;padding:0;align-items:flex-start;position:relative;top:13px;">
+                    <li><a href="{% url 'home' %}" style="color:#fff;text-shadow:0 2px 8px rgba(0,0,0,0.25);text-decoration:none;font-weight:500;font-size:0.75em;">Home</a></li>
+                    <li><a href="{% url 'visas' %}" style="color:#fff;text-shadow:0 2px 8px rgba(0,0,0,0.25);text-decoration:none;font-weight:500;font-size:0.75em;">Visas</a></li>
+                    <li><a href="{% url 'flights' %}" style="color:#fff;text-shadow:0 2px 8px rgba(0,0,0,0.25);text-decoration:none;font-weight:500;font-size:0.75em;">Flights</a></li>
+                    <li><a href="{% url 'Travel_planner' %}" style="color:#fff;text-shadow:0 2px 8px rgba(0,0,0,0.25);text-decoration:none;font-weight:500;font-size:0.75em;">Travel Planner</a></li>
+                    <li><a href="{% url 'about_us' %}" style="color:#fff;text-shadow:0 2px 8px rgba(0,0,0,0.25);text-decoration:none;font-weight:500;font-size:0.75em;">About Us</a></li>
+                    <li><a href="{% url 'contact_us' %}" style="color:#fff;text-shadow:0 2px 8px rgba(0,0,0,0.25);text-decoration:none;font-weight:500;font-size:0.75em;">Contact Us</a></li>
+                    <li><a href="{% url 'login' %}" style="color:#fff;text-shadow:0 2px 8px rgba(0,0,0,0.25);text-decoration:none;font-weight:500;font-size:0.75em;">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="hero-content">
+            <h1>Plan Your African Adventure</h1>
+            <p>Flights, hotels, activities & more — all in one place</p>
         </div>
-    </nav>
-
-    <!-- Hero Section OUTSIDE the container -->
-    <div class="hero-section">
-      <img src="{% static 'core/img/beautiful-tropical-beach-sea-ocean-with-coconut-palm-tree-umbrella-chair-blue-sky.jpg' %}" alt="Travel Africa">
-      <div class="hero-content">
-        <h1>Plan Your African Adventure</h1>
-        <p>Flights, hotels, activities & more — all in one place</p>
-      </div>
     </div>
 
     <div class="planner-container">
@@ -373,6 +496,61 @@
             </div>
             <button class="search-btn"><i class="ri-search-line"></i> Search Flights</button>
         </section>
+
+        <!-- "World is Yours to Discover" Section (restore original style) -->
+        <div class="discover-title" style="text-align:center; font-size:1.5em; color:#028A9E; font-weight:700; letter-spacing:2px; margin:2.5em 0 1.5em 0;">
+            The world is yours to  
+            <span style="display:block;font-size:2em;font-weight:bold;letter-spacing:2px;border-bottom:2px solid #028A9E;width:fit-content;margin:0 auto;margin-top:5px;">DISCOVER</span>
+        </div>
+
+        <!-- Cards Masonry Section (leave as is) -->
+        <div class="card-grid">
+            <div class="card tall">
+                <img src="{% static 'core/img/Nairobi.jpg' %}" alt="Nairobi">
+                <div class="card-content">
+                    <h3>Flights to Nairobi</h3>
+                    <p>From</p>
+                    <div class="price">$393</div>
+                    <p class="details">Return, from Kenya, Sep 2025</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="{% static 'core/img/Accra.jpg' %}" alt="Accra">
+                <div class="card-content">
+                    <h3>Flights to Accra</h3>
+                    <p>From</p>
+                    <div class="price">$400</div>
+                    <p class="details">Return, from Ghana, Oct 2025</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="{% static 'core/img/KIGALI.jpg' %}" alt="Kigali">
+                <div class="card-content">
+                    <h3>Flights to Kigali</h3>
+                    <p>From</p>
+                    <div class="price">$370</div>
+                    <p class="details">Return, from Nigeria, Nov 2025</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="{% static 'core/img/Abidjan.png' %}" alt="Abidjan">
+                <div class="card-content">
+                    <h3>Flights to Abidjan</h3>
+                    <p>From</p>
+                    <div class="price">$420</div>
+                    <p class="details">Return, from Senegal, Sep 2025</p>
+                </div>
+            </div>
+            <div class="card tall">
+                <img src="{% static 'core/img/lagos.jpg' %}" alt="Lagos">
+                <div class="card-content">
+                    <h3>Flights to Lagos</h3>
+                    <p>From</p>
+                    <div class="price">$410</div>
+                    <p class="details">Return, from Ghana, Oct 2025</p>
+                </div>
+            </div>
+        </div>
 
         <!-- Itinerary Builder / Trip Overview -->
         <section class="itinerary">

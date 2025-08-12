@@ -1,1674 +1,427 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Flight-Flow | Home</title>
-    {% load static %}
-    <!-- Google Fonts: Poppins -->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
-    <link rel="icon" type="image/x-icon" href="{% static 'core/img/favicon.ico' %}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 400;
-            margin: 0;
-            padding: 0;
-            background: #F5F7FA; /* Off-White */
-            color: #1A1A1A;      /* Charcoal Grey */
-        }
-        nav {
-            background: linear-gradient(90deg, #F5F7FA 80%, #e0f7fa 100%);
-            border-bottom: 2px solid #028A9E;
-            box-shadow: 0 2px 12px rgba(2,138,158,0.08);
-            border-radius: 0 0 18px 18px;
-            overflow: hidden;
-        }
-        .navbar-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 2em;
-            width: 100%;
-            height: 70px;
-        }
-        .logo img {
-            max-height: 100px;
-            width: auto;
-            display: block;
-            filter: drop-shadow(0 2px 8px rgba(2,138,158,0.10));
-        }
-        .nav-links {
-            display: flex;
-    align-items: center;
-    margin-left: auto;
-        }
-        .nav-links ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: flex-end;
-        }
-        .nav-links ul li {
-            margin: 0 1em;
-        }
-        .nav-links ul li a {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 500;
-            color: #028A9E;
-            text-decoration: none;
-            font-size: 0.95em;
-            padding: 0.3em 1em;
-            border-radius: 20px;
-            transition: background 0.2s, color 0.2s;
-        }
-        .nav-links ul li a:hover {
-            background: #028A9E;
-            color: #fff;
-        }
-        .container {
-            width: 100vw;
-            max-width: 100vw;
-            margin: 0;
-            padding: 2em 0;
-            text-align: center;
-            position: relative;
-            min-height: 900px;   /* Increased from 350px to 500px */
-            z-index: 1;
-            overflow: hidden;
-            border-radius: 0;
-        }
-        .hero-title {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 700;
-            font-size: 2.2em; /* was 3.7em */
-            margin-top: 1.2em;
-            margin-bottom: 0.5em;
-            color: #f5f5f5; /* Sky Teal */
-        }
-        .subtitle {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            font-size: 1em !important;
-            color: #f1f1f1; /* Charcoal Grey */
-            margin-bottom: 2em;
-        }
-        .body-text {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 400;
-            font-size: 1.1em;
-            color: #1A1A1A; /* Charcoal Grey */
-            margin-bottom: 2em;
-        }
-        .cta-btn {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 500;
-            font-size: 0.98em !important;
-            background: #028A9E; /* Sky Teal */
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            padding: 0.7em 1.5em !important;
-            cursor: pointer;
-            transition: background 0.2s, color 0.2s;
-            box-shadow: 0 2px 8px rgba(2,138,158,0.08);
-            margin-top: 1em;
-            border-bottom: 3px solid #F7C948; /* Gold Accent underline */
-        }
-        .cta-btn:hover {
-            background: #F7C948; /* Gold Accent */
-            color: #028A9E;      /* Sky Teal */
-        }
-        .country-selector {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 400;
-            font-size: 1em;
-            color: #1A1A1A; /* Charcoal Grey */
-            margin-left: auto;
-            margin-right: 1em;
-        }
-        .slideshow-bg {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            width: 100vw;
-            height: 100%;
-            z-index: 0;
-        }
-        .slide {
-            position: absolute;
-            width: 100vw;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            transition: opacity 1s;
-            left: 0;
-            top: 0;
-        }
-        .slide.active {
-            opacity: 1;
-            z-index: 1;
-        }
-        .slide-content {
-            position: relative;
-            z-index: 2;
-            color: #fff;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.4);
-            padding-top: 2em;
-        }
-        .flight-search-form {
-            margin: 2em auto 0 auto;
-            background: rgba(255,255,255,0.92);
-            border-radius: 16px;
-            box-shadow: 0 2px 12px rgba(2,138,158,0.08);
-            padding: 1.2em 1em;
-            max-width: 900px;
-            position: relative;
-            z-index: 5;
-        }
-        .flight-search-form .form-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1em;
-            justify-content: center;
-            align-items: center;
-        }
-        .flight-search-form input,
-        .flight-search-form select {
-            border: 2px solid #028A9E !important;   /* Thinner border */
-            border-radius: 8px;
-            padding: 0.6em 1.5em;                   /* Match dropdown button padding */
-            font-size: 1em;
-            height: 44px;                           /* Match Bootstrap button height */
-            background: #f5f7fa;
-            color: #028A9E;
-            outline: none;
-            transition: border 0.2s;
-            box-sizing: border-box;
-        }
-
-        .flight-search-form input:focus,
-        .flight-search-form select:focus {
-            border: 2.5px solid #028A9E !important;
-            box-shadow: 0 0 0 2px #028A9E22;
-        }
-
-        .flight-search-form button.cta-btn {
-            padding: 0.6em 1.5em;
-            font-size: 1em;
-            border-radius: 8px;
-            margin-left: 0.5em;
-        }
-        .dropdown-menu {
-    z-index: 1055 !important; /* higher than .container and slideshow */
-}
-        /* Remove border from dropdown buttons */
-.btn-outline-primary.dropdown-toggle {
-    border: 2px solid #028A9E !important;
-    box-shadow: none !important;
-    color: #028A9E !important;
-}
-
-.btn-outline-primary.dropdown-toggle::after {
-    color: #028A9E !important;
-    filter: none !important; /* Remove Bootstrap's default filter */
-    opacity: 1 !important;
-}
-
-.btn-outline-primary.dropdown-toggle:hover,
-.btn-outline-primary.dropdown-toggle:focus,
-.btn-outline-primary.dropdown-toggle:active {
-    background-color: #f5f7fa !important;
-    color: #028A9E !important;
-    border-color: #028A9E !important;
-    box-shadow: none !important;
-}
-
-.btn-outline-primary.dropdown-toggle:focus,
-.btn-outline-primary.dropdown-toggle:active,
-.btn-outline-primary.dropdown-toggle.show,
-.btn-outline-primary.dropdown-toggle:focus-visible {
-    background-color: #fff !important;
-    color: #028A9E !important;
-    border-color: #028A9E !important;
-    box-shadow: none !important;
-    outline: none !important;
-}
-
-.passenger-dropdown .btn.btn-primary,
-.dropdown-menu .btn.btn-primary {
-    background: #fff !important;
-    color: #111 !important;
-    border: 2px solid #028A9E !important;
-    box-shadow: none !important;
-}
-.passenger-dropdown .btn.btn-primary:hover,
-.dropdown-menu .btn.btn-primary:hover {
-    background: #f5f7fa !important;
-    color: #028A9E !important;
-    border: 2px solid #028A9E !important;
-}
-
-/* ADD PASSENGER button: black text, no blue hover */
-.passenger-dropdown .btn-outline-primary,
-.dropdown-menu .btn-outline-primary {
-    color: #111 !important;
-    border: 2px solid #028A9E !important;
-    background: #fff !important;
-}
-.passenger-dropdown .btn-outline-primary:hover,
-.dropdown-menu .btn-outline-primary:hover,
-.passenger-dropdown .btn-outline-primary:focus,
-.dropdown-menu .btn-outline-primary:focus {
-    background: #f5f7fa !important;
-    color: #028A9E !important;
-    border: 2px solid #028A9E !important;
-    box-shadow: none !important;
-}
-
-/* Prevent passenger box from turning blue on hover/focus */
-.passenger-dropdown .accordion-button,
-.passenger-dropdown .accordion-button:focus,
-.passenger-dropdown .accordion-button:active,
-.passenger-dropdown .accordion-button:hover,
-.passenger-dropdown .accordion-button:not(.collapsed),
-.passenger-dropdown .accordion-button.collapsed:focus,
-.passenger-dropdown .accordion-button.collapsed:active,
-.passenger-dropdown .accordion-button.collapsed:hover {
-    background: #fff !important;
-    color: #028A9E !important;
-    box-shadow: none !important;
-    border-color: #028A9E !important;
-}
-        @media (max-width: 700px) {
-            .navbar-container {
-                flex-direction: row !important;
-                align-items: center !important;
-                justify-content: space-between !important;
-                height: 62px !important;
-                padding: 0 14px !important;
-            }
-            .logo img {
-                max-height: 44px !important;
-            }
-            .mobile-nav-toggle {
-                display: flex !important;
-                align-items: center;
-                justify-content: flex-end;
-                margin-left: auto !important;
-                margin-right: 0 !important;
-                height: 100%;
-            }
-            .nav-links {
-                display: none !important;
-            }
-            .nav-profile-link {
-                margin-left: 12px !important;
-                display: flex !important;
-                align-items: center !important;
-            }
-        }
-        @media (min-width: 701px) {
-    .mobile-nav-toggle {
-        display: none !important;
+  <meta charset="UTF-8">
+  <title>Flight-Flow | Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Google Fonts: Poppins -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="{% static 'core/img/favicon.ico' %}">
+  <style>
+    /* Paste your provided CSS here, but update colors to Flight-Flow's palette */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.4;
+      color: #1A1A1A;
+      background: #F5F7FA;
     }
-}
-        @media (max-width: 700px) {
-            .navbar-container {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 0 em;
-                height: auto;
-            }
-            .logo {
-                font-size: 1.5em;
-                margin-bottom: 0.5em;
-            }
-            .nav-links {
-                width: 100%;
-                margin-left: 0;
-            }
-            .nav-links ul {
-                width: 100%;
-                justify-content: flex-start;
-                flex-wrap: wrap;
-            }
-            .nav-links ul li {
-                margin: 0 0.7em 0.5em 0;
-            }
-            .container {
-                padding: 1em 0.5em;
-            }
-            .hero-title {
-                font-size: 1.5em;
-            }
-            .subtitle {
-                font-size: 1em;
-            }
-            .flight-search-form {
-                padding: 1em 0.5em;
-            }
-        }
-        @media (max-width: 900px) {
-    .flight-search-form .form-row {
-        flex-direction: column;
-        gap: 0.7em;
-        align-items: stretch;
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: #fff;
+      border-bottom: 2px solid #028A9E;
+      border-radius: 0 0 18px 18px;
+      box-shadow: 0 2px 12px rgba(2,138,158,0.08);
     }
-    .flight-search-form {
-        padding: 1em 0.5em;
+    .logo img {
+      height: 60px;
+      width: auto;
+      display: block;
+      filter: drop-shadow(0 2px 8px rgba(2,138,158,0.10));
     }
-}
-
-.why-choose {
-    background: #fff;
-    padding: 2em 2rem;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
-    border-radius: 18px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
-}
-
-.why-choose h2 {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-    font-size: 1.15em !important;
-    margin-bottom: 1em;
-    color: #028A9E;
-}
-
-.features {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2em;
-}
-
-.feature-box {
-    background: #f5f7fa;
-    border-radius: 12px;
-    padding: 2em;
-    text-align: center;
-    flex: 1 1 250px;
-    max-width: 300px;
-    box-shadow: 0 2px 12px rgba(2,138,158,0.08);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.feature-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 24px rgba(2,138,158,0.15);
-}
-
-.feature-box img {
-    max-width: 60px;
-    margin-bottom: 1em;
-}
-
-.feature-box h3 {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    font-size: 1em !important;
-    margin-bottom: 0.5em;
-    color: #111;
-}
-
-.feature-box p {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 400;
-    font-size: 0.93em !important;
-    color: #333;
-    line-height: 1.4;
-}
-
-/* Explore Destinations Section */
-.destinations-section {
-  text-align: center;
-  padding: 40px 20px;
-}
-
-.destinations-section h2 {
-  color: #008080;
-  font-size: 1.7em; /* was 2rem */
-  margin-bottom: 30px;
-}
-
-.destinations-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  padding: 0;
-  overflow-x: unset;
-}
-
-.destination-card {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
-  max-width: 250px;
-  text-align: center;
-  padding: 15px;
-  transition: transform 0.3s ease;
-}
-
-.destination-card:hover {
-  transform: translateY(-5px);
-}
-
-.destination-card img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-.destination-card h3 {
-  color: #008080;
-  margin-top: 10px;
-  font-size: 1.2rem;
-}
-
-.destination-card p {
-  margin: 5px 0;
-}
-
-.did-you-know {
-  font-size: 0.9rem;
-  background-color: #fffbe6;
-  border-radius: 6px;
-  padding: 8px;
-  color: #666;
-}
-
-.full-width {
-  flex: 1 1 100%;
-  max-width: 520px;
-}
-
-.gallery-section {
-  text-align: center;
-  padding: 48px 32px 32px 32px; /* Add horizontal padding */
-  background: linear-gradient(120deg, #f5fafd 60%, #e0f7fa 100%);
-  border-radius: 18px;
-  margin: 40px 0;
-  overflow-x: auto;
-}
-
-.gallery-section h2 {
-  color: #008080;
-  font-size: 1.7em; /* was 2rem */
-  margin-bottom: 30px;
-}
-
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 24px;
-  padding: 0;
-  overflow-x: unset;
-}
-
-.gallery-card {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(2,138,158,0.10);
-  overflow: hidden;
-  /* Remove width: 240px; */
-  height: 170px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s cubic-bezier(.4,2,.6,1), box-shadow 0.3s;
-  cursor: pointer;
-  position: relative;
-  scroll-snap-align: start;
-}
-
-.gallery-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.gallery-card .overlay {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  background: rgba(2,138,158,0.7);
-  color: #fff;
-  padding: 14px 0 10px 0;
-  opacity: 0;
-  transition: opacity 0.3s;
-  font-size: 0.95em !important;
-  width: 100%;
-  text-align: center;
-  letter-spacing: 1px;
-}
-
-.gallery-card:hover {
-  transform: translateY(-10px) scale(1.05) rotate(-1deg);
-  box-shadow: 0 12px 32px rgba(2,138,158,0.18);
-}
-
-.gallery-card:hover .overlay {
-  opacity: 1;
-}
-
-@media (max-width: 700px) {
-  .destinations-grid {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 16px !important;
-    align-items: center !important;
-    padding: 0 8px !important;
-  }
-  .destination-card {
-    width: 90vw !important;
-    max-width: 340px !important;
-    margin: 0 auto !important;
-  }
-
-  /* Gallery: horizontal scroll, cards in a row */
-  .gallery-grid {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 12px !important;
-    padding: 0 8px !important;
-    overflow-x: unset !important;
-    scroll-snap-type: none !important;
-  }
-  .gallery-card {
-    width: 100% !important;
-    min-width: 0 !important;
-    max-width: none !important;
-    height: 120px !important;
-    margin-bottom: 8px !important;
-    scroll-snap-align: unset !important;
-  }
-}
-
-.mobile-optimized-section {
-  background: linear-gradient(100deg, #e0f7fa 60%, #f5fafd 100%);
-  border-radius: 18px;
-  margin: 48px 0 0 0;
-  padding: 36px 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 220px;
-}
-.mobile-optimized-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 950px;
-  gap: 36px;
-}
-.mobile-optimized-text {
-  flex: 1 1 350px;
-  text-align: left;
-  align-items: flex-start;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.mobile-optimized-text h2 {
-  color: #028A9E;
-  font-size: 2rem;
-  margin-bottom: 10px;
-  text-align: left;
-  align-self: flex-start;
-  margin-left: 0;
-  padding-left: 0;
-}
-
-/* Add this for extra left alignment on large screens */
-@media (min-width: 950px) {
-  .mobile-optimized-text {
-    padding-left: 32px;
-  }
-}
-
-.mobile-optimized-image {
-  flex: 0 0 200px;
-  text-align: center;
-}
-@media (max-width: 900px) {
-  .mobile-optimized-content {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 24px;
-  }
-  .mobile-optimized-image {
-    align-self: flex-end;
-  }
-  .mobile-optimized-section {
-    padding: 28px 10px;
-  }
-}
-
-.cta-explore-section {
-  background: linear-gradient(100deg, #028A9E 70%, #00bcd4 100%);
-  border-radius: 18px;
-  margin: 48px 0 0 0;
-  padding: 48px 0 40px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 180px;
-  text-align: center;
-}
-.cta-explore-content {
-  max-width: 600px;
-  width: 100%;
-}
-.cta-explore-section h2 {
-  color: #fff;
-  font-size: 2.2rem;
-  margin-bottom: 14px;
-  font-weight: 700;
-}
-.cta-btn.cta-btn-white {
-  background: #fff;
-  color: #028A9E;
-  border: none;
-  border-radius: 4px;
-  padding: 0.8em 2em;
-  font-size: 1.1em;
-  font-weight: 600;
-  margin-top: 10px;
-  box-shadow: 0 2px 8px rgba(2,138,158,0.08);
-  border-bottom: 3px solid #F7C948;
-  transition: background 0.2s, color 0.2s;
-  display: inline-block;
-  text-decoration: none;
-}
-.cta-btn.cta-btn-white:hover {
-  background: #F7C948;
-  color: #028A9E;
-}
-@media (max-width: 700px) {
-  .cta-explore-section {
-    padding: 32px 10px 28px 10px;
-    border-radius: 10px;
-  }
-  .cta-explore-content h2 {
-    font-size: 1.3rem;
-  }
-}
-
-.site-footer {
-  background: #028A9E;
-  color: #fff;
-  text-align: center;
-  padding: 36px 0 24px 0;
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.95em !important;
-  letter-spacing: 0.5px;
-  margin-top: 0;
-  border-radius: 0 0 18px 18px;
-}
-.footer-content {
-  max-width: 900px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-}
-.footer-contacts {
-  margin-bottom: 8px;
-}
-.footer-contacts a {
-  color: #fff;
-  text-decoration: underline;
-  margin-left: 4px;
-}
-.footer-social {
-  margin: 10px 0;
-  font-size: 1.15em;
-}
-.footer-social a {
-  color: #fff;
-  font-size: 1.4em;
-  transition: color 0.2s;
-  vertical-align: middle;
-}
-.footer-social a:hover {
-  color: #F7C948;
-}
-.footer-copy {
-  font-size: 0.98em;
-  color: #e0f7fa;
-  margin-top: 8px;
-}
-@media (max-width: 700px) {
-  .footer-content {
-    padding: 0 10px;
-    font-size: 0.9em;
-  }
-}
-
-/* Hide nav-links on mobile, show on desktop */
-@media (max-width: 700px) {
-    .nav-links {
-        display: none !important;
+    .nav-links a,
+    .user-links a {
+      margin: 0 0.55rem;
+      text-decoration: none;
+      color: #028A9E;
+      font-size: 0.75em;
+      font-weight: 500;
+      padding: 0.25em 0.7em;
+      border-radius: 20px;
+      transition: background 0.2s, color 0.2s;
     }
-}
-@media (min-width: 701px) {
-    .nav-links {
-        display: flex !important;
+    .nav-links a:hover,
+    .user-links a:hover {
+      background: #028A9E;
+      color: #fff;
     }
-    .mobile-nav-slider {
-        display: none !important;
+    .main-content { padding: 2rem; max-width: 1100px; margin: 0 auto; }
+    .hero .greeting {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: #028A9E;
+      font-weight: 700;
     }
-}
-
-.cta-explore-fullwidth {
-  border-radius: 0 !important;
-  width: 100vw;
-  max-width: 100vw;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  position: relative;
-  margin-top: 48px;
-  margin-bottom: 40px; /* Space above the footer */
-  padding-left: 0;
-  padding-right: 0;
-}
-@media (max-width: 700px) {
-  .cta-explore-fullwidth {
-    margin-top: 32px;
-    margin-bottom: 24px;
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
-
-/* Align profile image with nav links */
-.nav-profile-link {
-    display: flex;
-    align-items: center;
-    margin-left: 2em;
-}
-
-.nav-profile-link img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2.5px solid #028A9E;
-    box-shadow: 0 2px 8px rgba(2,138,158,0.10);
-    background: #fff;
-    /* Add a smooth border for the circle */
-    transition: box-shadow 0.2s, border-color 0.2s;
-    vertical-align: middle;
-}
-
-/* Hamburger only on mobile */
-@media (max-width: 700px) {
-    .mobile-nav-toggle {
-        display: block !important;
-        margin-right: 1em;
+    .hero .greeting .blue { color: #F7C948; }
+    .search-panel {
+      background: #f8f8f8;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 12px rgba(2,138,158,0.08);
+      margin-bottom: 2em;
     }
-    .nav-links {
-        display: none !important;
+    .trip-type {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      gap: 0.5em;
     }
-    .nav-profile-link {
-        margin-left: auto !important;
-        display: flex !important;
-        align-items: center !important;
+    .trip-type button {
+      background: #e0f7fa;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 4px;
+      cursor: pointer;
+      color: #028A9E;
+      font-weight: 500;
+      transition: background 0.2s, color 0.2s;
     }
-    .mobile-nav-slider {
-        position: fixed;
-        top: 0;
-        right: -260px;
-        width: 240px;
-        height: 100vh;
-        background: #fff;
-        box-shadow: -2px 0 12px rgba(2,138,158,0.12);
-        z-index: 9999;
-        transition: right 0.3s;
-        padding: 32px 18px 18px 18px;
+    .trip-type button.active,
+    .trip-type button:hover {
+      background: #028A9E;
+      color: #fff;
     }
-    .mobile-nav-slider.open {
-        right: 0;
+    .trip-type select {
+      margin-left: 0.75rem;
+      padding: 0.5rem;
+      border: 1px solid #028A9E;
+      border-radius: 4px;
+      color: #028A9E;
+      background: #f5f7fa;
+      font-weight: 500;
     }
-    .mobile-nav-content ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
+    .search-box {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5em;
     }
-    .mobile-nav-content ul li {
-        margin-bottom: 1.2em;
+    .search-box input {
+      padding: 0.5rem;
+      border: 1px solid #028A9E;
+      border-radius: 4px;
+      flex: 1 1 120px;
+      color: #028A9E;
+      background: #f5f7fa;
+      font-size: 1em;
     }
-    .mobile-nav-content ul li a {
-        color: #028A9E;
-        font-size: 1.1em;
-        text-decoration: none;
-        font-weight: 500;
-        padding: 0.5em 0;
-        display: block;
-        border-radius: 8px;
-        transition: background 0.2s, color 0.2s;
+    .swap-icon {
+      margin: 0 0.5rem;
+      font-size: 1.2rem;
+      color: #028A9E;
     }
-    .mobile-nav-content ul li a:hover {
-        background: #F7C948;
-        color: #028A9E;
+    .search-btn {
+      background: #028A9E;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s, color 0.2s;
     }
-    .close-mobile-nav {
-        margin-bottom: 24px;
-        display: block;
+    .search-btn:hover {
+      background: #F7C948;
+      color: #028A9E;
     }
-}
-
-/* Discover Section Styles */
-.discover-section {
-    margin: 3em 0;
-}
-.discover-title {
-    text-align: center;
-    font-size: 2.5em;
-    color: #028A9E;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin-bottom: 1.5em;
-}
-.discover-title span {
-  display: block;
-  font-size: 2em;
-  font-weight: bold;
-  letter-spacing: 2px;
-  border-bottom: 2px solid #028A9E;
-  width: fit-content;
-  margin: 0 auto;
-  margin-top: 5px;
-}
-.card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 2em;
-}
-.card {
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(2,138,158,0.10);
-    overflow: hidden;
-    transition: transform 0.2s, box-shadow 0.2s;
-    display: flex;
-    flex-direction: column;
-}
-.card:hover {
-    transform: translateY(-6px) scale(1.03);
-    box-shadow: 0 12px 32px rgba(2,138,158,0.16);
-}
-.card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-}
-.card-content {
-    padding: 1.2em;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-.card-content h2, .card-content h3 {
-    margin-bottom: 0.5em;
-    color: #028A9E;
-    font-size: 1.2em;
-    font-weight: 600;
-}
-.price {
-    font-weight: 700;
-    color: #009688;
-    font-size: 1.2em;
-    margin-bottom: 0.3em;
-}
-.info {
-    color: #666;
-    font-size: 0.98em;
-    margin-top: 0.5em;
-}
-@media (max-width: 700px) {
-    .discover-title {
-        font-size: 1.6em;
+    .cards {
+      display: flex;
+      gap: 1.5rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+      justify-content: center;
     }
-    .card-grid {
-        grid-template-columns: 1fr;
-        gap: 1.2em;
+    .card {
+      flex: 1 1 220px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+      max-width: 320px;
+      min-width: 220px;
+      box-shadow: 0 2px 12px rgba(2,138,158,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 12px 32px rgba(2,138,158,0.16);
     }
     .card img {
-        height: 120px;
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      max-width: 120px;
+      max-height: 120px;
+      object-fit: cover;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
-}
-
-.klm-cards-container {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
-  margin-bottom: 2em;
-}
-.klm-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 340px;
-  background: none;
-  border-radius: 12px;
-  box-shadow: none;
-  margin-bottom: 24px;
-}
-.klm-image-wrapper {
-  width: 100%;
-  height: 220px;
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(2,138,158,0.10);
-  transition: box-shadow 0.3s;
-}
-.klm-image-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s cubic-bezier(.4,2,.6,1);
-}
-.klm-card:hover .klm-image-wrapper img {
-  transform: scale(1.08);
-}
-.klm-card-info {
-  margin-top: 18px;
-  width: 100%;
-  text-align: center;
-}
-
-.klm-country {
-  font-size: 0.92em !important;
-  font-weight: 600;
-  color: #028A9E;
-  margin-bottom: 4px;
-}
-
-.klm-country span {
-  color: #666;
-  font-size: 0.92em;
-  font-weight: 400;
-}
-
-.klm-price {
-  font-size: 0.89em !important;
-  color: #009688;
-  margin-bottom: 10px;
-}
-
-.klm-price strong {
-  color: #009688;
-}
-.klm-explore-btn {
-  background: #e6f0f6;
-  color: #028A9E;
-  border: none;
-  border-radius: 6px;
-  padding: 7px 16px !important;
-  font-size: 0.95em !important;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s;
-  margin-top: 4px;
-}
-.klm-explore-btn:hover {
-  background: #d0e4f1;
-}
-@media (max-width: 900px) {
-  .klm-cards-container {
-    gap: 20px;
-  }
-  .klm-card {
-    width: 90vw;
-    min-width: 220px;
-    max-width: 340px;
-  }
-  .klm-image-wrapper {
-    height: 160px;
-  }
-}
-
-/* Explore Destinations Section: Staggered Card Grid */
-.destinations-section {
-  text-align: center;
-  padding: 40px 20px;
-  background: #fff;
-}
-
-.destinations-section h2 {
-  color: #008080;
-  font-size: 1.7em; /* was 2rem */
-  margin-bottom: 30px;
-}
-
-.discover-title {
-    text-align: center;
-    font-size: 1.5em;
-    color: #028A9E;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin-bottom: 1.5em;
-}
-.discover-title span {
-  display: block;
-  font-size: 2em;
-  font-weight: bold;
-  letter-spacing: 2px;
-  border-bottom: 2px solid #028A9E;
-  width: fit-content;
-  margin: 0 auto;
-  margin-top: 5px;
-}
-.discover-card-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 260px;
-    gap: 20px;
-    padding: 0 5vw 50px;
-}
-.discover-card {
-  position: relative;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(2,138,158,0.10);
-  background: #fff;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.discover-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.5s cubic-bezier(.4,2,.6,1);
-}
-.discover-card:hover img {
-  transform: scale(1.07);
-}
-.discover-card-content {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding: 16px 14px 12px 14px;
-  color: #fff;
-  background: linear-gradient(to top, rgba(2,30,60,0.92), rgba(2,30,60,0.0));
-  text-align: left;
-}
-.discover-card-content h3 {
-  margin: 0 0 2px 0;
-  font-size: 1.08em;
-  font-weight: 600;
-  letter-spacing: 1px;
-}
-.discover-price {
-  font-size: 1em;
-  font-weight: 700;
-  margin: 2px 0 2px 0;
-  color: #F7C948;
-}
-.discover-details {
-  font-size: 0.9em;
-  color: #f1f1f1;
-}
-    </style>
+    .card h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: #028A9E;
+    }
+    .card p {
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+    .card input {
+      width: calc(100% - 1rem);
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      border: 1px solid #028A9E;
+      border-radius: 4px;
+      color: #028A9E;
+      background: #f5f7fa;
+    }
+    .btn-blue {
+      background: #028A9E;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-blue:hover {
+      background: #F7C948;
+      color: #028A9E;
+    }
+    .card small { color: #666; }
+    .download-app {
+      display: flex;
+      align-items: center;
+      background: linear-gradient(120deg, #028A9E, #00bcd4);
+      color: white;
+      padding: 2rem;
+      border-radius: 8px;
+      margin-top: 2em;
+      gap: 2em;
+      justify-content: center;
+    }
+    .app-text {
+      flex: 1;
+    }
+    .app-text h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+    .app-buttons {
+      display: flex;
+      gap: 1em;
+    }
+    .app-btn {
+      background: white;
+      color: #028A9E;
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      margin-right: 0.5rem;
+      transition: background 0.2s, color 0.2s;
+    }
+    .app-btn:hover {
+      background: #F7C948;
+      color: #028A9E;
+    }
+    .app-image {
+      flex: 0 0 auto;
+    }
+    .app-image img {
+      max-width: 200px;
+      border-radius: 8px;
+      box-shadow: 0 2px 12px rgba(2,138,158,0.10);
+    }
+    @media (max-width: 900px) {
+      .main-content { padding: 1em 0.5em; }
+      .cards { flex-direction: column; gap: 1.2em; }
+      .download-app { flex-direction: column; gap: 1.2em; }
+    }
+  </style>
 </head>
 <body>
-    <!-- NAVBAR REMOVED. Place nav content on slideshow background: -->
-    <div class="container">
-        <div class="navbar-container" style="position:absolute;top:0;left:0;width:100vw;max-width:100vw;z-index:10;background:transparent;display:flex;align-items:center;justify-content:space-between;padding:0 2em;height:70px;">
-            <span class="logo">
-                <img src="{% static 'core/img/WhatsApp_Image_2025-06-19_at_11.15.24_815a1b9d-removebg-preview.png' %}" 
-                     alt="Flight-Flow Logo">
-            </span>
-            <div class="mobile-nav-toggle" id="mobileNavToggle">
-                <span style="font-size:2em; color:#028A9E; cursor:pointer;">
-                    &#9776;
-                </span>
-            </div>
-            {% if user.is_authenticated %}
-            <a href="{% url 'profile' %}" class="nav-profile-link">
-                <img src="{{ user.profile.profile_pic.url }}" alt="Profile">
-            </a>
-            {% endif %}
-            <div class="nav-links">
-                <ul>
-                    <li><a href="{% url 'home' %}">Home</a></li>
-                    <li><a href="{% url 'visas' %}">Visas</a></li>
-                    <li><a href="{% url 'flights' %}">Flights</a></li>
-                    <li><a href="{% url 'Travel_planner' %}">Travel planner</a></li>
-                    <li><a href="{% url 'about_us' %}">About Us</a></li>
-                    <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
-                    {% if not user.is_authenticated %}
-                    <li><a href="{% url 'login' %}">Login</a></li>
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
-        <div class="slideshow-bg">
-            <img src="{% static 'core/img/airplane-sunset.jpg' %}" class="slide active">
-            <img src="{% static 'core/img/plane-airport-sunset.jpg' %}" class="slide">
-            <img src="{% static 'core/img/planes-runway-modern-airport.jpg' %}" class="slide">
-            <img src="{% static 'core/img/airport-aircraft-airplane-aviation-transportation-travel.jpg' %}" class="slide">
-        </div>
-        <div class="slide-content">
-            <h1 class="hero-title">Connecting Africa, One Flight at a Time</h1>
-            <div class="subtitle">Your trusted Gateway to discover, compare, and book flights across Africa - Seamlessly.</div>
-        </div>
-        <div class="flight-search-form">
-    <form method="get" action="{% url 'flights' %}">
-        <div class="form-row">
-            <div class="btn-group me-2" style="min-width: 140px;">
-  <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="tripTypeBtn">
-    Round Trip
-  </button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="#" onclick="setTripType('Round Trip', 'round_trip')">Round Trip</a></li>
-    <li><a class="dropdown-item" href="#" onclick="setTripType('One-way', 'one_way')">One-way</a></li>
-    <li><a class="dropdown-item" href="#" onclick="setTripType('Multi-city', 'multi_city')">Multi-city</a></li>
-  </ul>
-  <input type="hidden" name="trip_type" id="tripTypeInput" value="round_trip">
-</div>
-            <div class="input-group mb-2" style="max-width:220px;">
-  <span class="input-group-text bg-white border-0" style="color:#000000;">
-    <i class="ri-flight-takeoff-line"></i>
-  </span>
-  <input type="text" name="from" class="form-control" placeholder="Departing from" required>
-</div>
-<div class="input-group mb-2" style="max-width:220px;">
-  <span class="input-group-text bg-white border-0" style="color:#0c0c0c;">
-    <i class="ri-flight-land-fill"></i>
-  </span>
-  <input type="text" name="to" class="form-control" placeholder="Arriving at" required>
-</div>
-            <input type="date" name="departure" placeholder="Departure Date" required>
-            <input type="date" name="return" placeholder="Return Date">
-            <div class="btn-group me-2" style="min-width: 180px;" data-bs-auto-close="outside">
-  <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="passengerBtn">
-    Passengers
-  </button>
-  <div class="dropdown-menu p-3 passenger-dropdown" style="min-width: 300px;" onclick="event.stopPropagation();">
-    <div class="mb-2 fw-bold" id="passengerMenuTitle">Passengers (1)</div>
-    <div id="passengerList">
-      <div class="accordion" id="passengerAccordion">
-        <!-- Passenger accordion items go here -->
-      </div>
+  <header class="header">
+    <span class="logo">
+      <img src="{% static 'core/img/white.png' %}" alt="Flight-Flow Logo">
+    </span>
+    <nav class="nav-links">
+      <a href="{% url 'home' %}">Home</a>
+      <a href="{% url 'visas' %}">Visas</a>
+      <a href="{% url 'flights' %}">Flights</a>
+      <a href="{% url 'Travel_planner' %}">Travel Planner</a>
+      <a href="{% url 'about_us' %}">About Us</a>
+      <a href="{% url 'contact_us' %}">Contact Us</a>
+      {% if not user.is_authenticated %}
+      <a href="{% url 'login' %}">Login</a>
+      {% endif %}
+    </nav>
+    <div class="user-links">
+      {% if user.is_authenticated %}
+      <a href="{% url 'profile' %}">Profile</a>
+      {% endif %}
     </div>
-    <button type="button" class="btn btn-sm btn-outline-primary w-100 mt-2" onclick="addPassenger()">+ Add Passenger</button>
-    <div class="d-flex justify-content-start mt-3">
-      <button type="button" class="btn btn-primary" onclick="closePassengerDropdown()">Continue</button>
-    </div>
-    <input type="hidden" name="passenger_count" id="passenger_count" value="1">
-  </div>
-</div>
-            <div class="btn-group me-2" style="min-width: 140px;">
-  <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="classBtn">
-    Class
-  </button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="#" onclick="setClass('Economy', 'economy')">Economy</a></li>
-    <li><a class="dropdown-item" href="#" onclick="setClass('Premium Economy', 'premium_economy')">Premium Economy</a></li>
-    <li><a class="dropdown-item" href="#" onclick="setClass('Business', 'business')">Business</a></li>
-    <li><a class="dropdown-item" href="#" onclick="setClass('First Class', 'first')">First Class</a></li>
-  </ul>
-  <input type="hidden" name="class" id="classInput" value="">
-</div>
-            <button type="submit" class="cta-btn" style="margin:0;">Search Flight</button>
-        </div>
-    </form>
-</div>
-    </div> <!-- End .container (after flight-search-form) -->
+  </header>
 
-    
+  <main class="main-content">
+    <section class="hero">
+      <h1 class="greeting"><span class="blue">Hello there,</span><br>Book cheap flights with your one-stop travel shop!</h1>
+      <div class="search-panel">
+        <div class="trip-type">
+          <button class="active">Return</button>
+          <button>One-way</button>
+          <button>Multi-city</button>
+          <select>
+            <option>Economy Class</option>
+            <option>Business Class</option>
+          </select>
+          <div class="traveller-container" style="position:relative;display:inline-block;">
+    <button id="travellerBtn" type="button" style="background:#f5f7fa;border:1.5px solid #028A9E;color:#028A9E;font-size:0.85em;border-radius:7px;padding:0.35em 0.9em;font-family:inherit;font-weight:500;cursor:pointer;transition:background 0.2s, color 0.2s;">
+        1 Traveller(s) ▼
+    </button>
+    <div id="travellerPopup" class="traveller-popup" style="display:none;position:absolute;top:110%;left:0;z-index:100;background:#fff;border:1.2px solid #028A9E;border-radius:10px;box-shadow:0 6px 24px rgba(2,138,158,0.13);padding:0.7em 0.6em;width:340px;min-width:260px;">
+        <div class="traveller-row" style="margin-bottom:0.7em;">
+            <span class="label" style="font-weight:600;font-size:0.93em;display:block;margin-bottom:0.25em;">Adults (16+ yrs)</span>
+            <div class="numbers" style="display:flex;flex-wrap:wrap;gap:2px;">
+                <button class="active" style="font-size:0.92em;padding:0.3em 0.7em;">1</button>
+                <button style="font-size:0.92em;padding:0.3em 0.7em;">2</button><button style="font-size:0.92em;padding:0.3em 0.7em;">3</button>
+                <button style="font-size:0.92em;padding:0.3em 0.7em;">4</button><button style="font-size:0.92em;padding:0.3em 0.7em;">5</button>
+                <button style="font-size:0.92em;padding:0.3em 0.7em;">6</button><button style="font-size:0.92em;padding:0.3em 0.7em;">7</button>
+                <button style="font-size:0.92em;padding:0.3em 0.7em;">8</button><button style="font-size:0.92em;padding:0.3em 0.7em;">9</button>
             </div>
         </div>
+        <div class="traveller-row" style="margin-bottom:0.7em;">
+            <span class="label" style="font-weight:600;font-size:0.93em;display:block;margin-bottom:0.25em;">Young Adult (12-15 yrs)</span>
+            <div class="numbers" style="display:flex;flex-wrap:wrap;gap:2px;">
+                <button style="font-size:0.92em;padding:0.3em 0.7em;">0</button><button style="font-size:0.92em;padding:0.3em 0.7em;">1</button>
+                <button style="font-size:0.92em;padding:0.3em 0.7em;">2</button><button style="font-size:0.92em;padding:0.3em 0.7em;">3</button>
+                <button style="font-size:0.92em;padding:0.3em 0.7em;">4</button><button style="font-size:0.92em;padding:0.3em 0.7em;">5</button>
+                <button style="font-size:0.92em;padding:0.3em 0.7em;">6</button><button style="font-size:0.92em;padding:0.3em 0.7em;">7</button>
+                <button style="font-size:0.92em;padding:0.3em 0.7em;">8</button>
+            </div>
+        </div>
+        <div class="traveller-row" style="margin-bottom:0.7em;">
+            <span class="label" style="font-weight:600;font-size:0.93em;display:block;margin-bottom:0.25em;">Children (2-11 yrs)</span>
+            <div class="numbers" style="display:flex;flex-wrap:wrap;gap:2px;">
+                <button style="font-size:0.92em;padding:0.3em 0.7em;">0</button><button style="font-size:0.92em;padding:0.3em 0.7em;">1</button>
+                <button style="font-size:0.92em;padding:0.3em 0.7em;">2</button><button style="font-size:0.92em;padding:0.3em 0.7em;">3</button>
+                <button style="font-size:0.92em;padding:0.3em 0.7em;">4</button><button style="font-size:0.92em;padding:0.3em 0.7em;">5</button>
+                <button style="font-size:0.92em;padding:0.3em 0.7em;">6</button><button style="font-size:0.92em;padding:0.3em 0.7em;">7</button>
+                <button style="font-size:0.92em;padding:0.3em 0.7em;">8</button>
+            </div>
+        </div>
+        <div class="traveller-row" style="margin-bottom:0.7em;">
+            <span class="label" style="font-weight:600;font-size:0.93em;display:block;margin-bottom:0.25em;">Infants (Under 2 yrs)</span>
+            <div class="numbers" style="display:flex;flex-wrap:wrap;gap:2px;">
+                <button style="font-size:0.92em;padding:0.3em 0.7em;">0</button><button style="font-size:0.92em;padding:0.3em 0.7em;">1</button>
+                <button style="font-size:0.92em;padding:0.3em 0.7em;">2</button><button style="font-size:0.92em;padding:0.3em 0.7em;">3</button>
+                <button style="font-size:0.92em;padding:0.3em 0.7em;">4</button><button style="font-size:0.92em;padding:0.3em 0.7em;">5</button>
+                <button style="font-size:0.92em;padding:0.3em 0.7em;">6</button>
+            </div>
+        </div>
+        <p class="notice" style="font-size:0.82em;color:#028A9E;margin-bottom:0.7em;">
+            There must be at least one adult per booking for online bookings.<br>
+            To book for young adults travelling alone, please contact us by calling
+            <strong>+27 21 468 4300</strong>
+        </p>
+        <div class="popup-actions" style="display:flex;justify-content:flex-end;gap:0.5em;">
+            <button class="close-btn" type="button" style="background:#eee;color:#028A9E;border:none;padding:0.35em 1em;border-radius:5px;cursor:pointer;font-size:0.92em;">Close</button>
+            <button class="apply-btn" type="button" style="background:#028A9E;color:#fff;border:none;padding:0.35em 1em;border-radius:5px;cursor:pointer;font-size:0.92em;">Apply</button>
+        </div>
+    </div>
+</div>
+        </div>
+        <div class="search-box">
+          <input type="text" placeholder="From">
+          <span class="swap-icon">⇄</span>
+          <input type="text" placeholder="To">
+          <input type="date" placeholder="Departure">
+          <input type="date" placeholder="Return">
+          <button class="search-btn">Search Flights</button>
+        </div>
+      </div>
     </section>
-    <!-- Why Choose FlightFlow Section -->
-<section class="why-choose">
-  <h2>Why Choose FlightFlow?</h2>
-  <div class="features">
-    <div class="feature-box">
-      <i class="ri-plane-line" style="font-size:48px; color:#028A9E; margin-bottom:15px;"></i>
-      <h3>Compare Flights</h3>
-      <p>See multiple airlines, prices, and flight durations at once.</p>
-    </div>
-    <div class="feature-box">
-      <!-- Flexible Payments Icon: Credit card -->
-      <svg width="48" height="48" fill="none" viewBox="0 0 48 48">
-        <rect x="6" y="12" width="36" height="24" rx="4" stroke="#F4A261" stroke-width="2.5" fill="#fff"/>
-        <rect x="10" y="28" width="8" height="4" rx="2" fill="#F4A261"/>
-        <rect x="22" y="28" width="8" height="4" rx="2" fill="#F4A261"/>
-        <rect x="6" y="18" width="36" height="4" fill="#F4A261" opacity="0.2"/>
-      </svg>
-      <h3>Flexible Payments</h3>
-      <p>Use Mobile Money, Paystack, or Flutterwave to pay securely.</p>
-    </div>
-    <div class="feature-box">
-      <!-- Africa-first Icon: Africa continent SVG -->
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-    <circle cx="24" cy="24" r="22" stroke="#028A9E" stroke-width="2.5" fill="#F4A26122"/>
-    <path d="M20 12
-      Q22 10, 26 12
-      Q32 14, 32 20
-      Q36 22, 34 28
-      Q32 32, 28 32
-      Q26 36, 22 34
-      Q18 32, 18 28
-      Q14 26, 16 22
-      Q14 18, 18 16
-      Q18 14, 20 12
-      Z"
-      fill="#F4A261" stroke="#028A9E" stroke-width="1.5"/>
-  </svg>
-      <h3>Africa-first</h3>
-      <p>Built for African travellers, supporting local currencies and languages.</p>
-    </div>
-  </div>
-</section>
-<!-- Explore Destinations Section -->
-<section class="destinations-section" style="background:#fff;">
-  <div class="discover-title" style="text-align:center; font-size:1.5em; color:#028A9E; font-weight:700; letter-spacing:2px; margin-bottom:1.5em;">
-    The world is yours to  
-    <span style="display:block;font-size:2em;font-weight:bold;letter-spacing:2px;border-bottom:2px solid #028A9E;width:fit-content;margin:0 auto;margin-top:5px;">DISCOVER</span>
-  </div>
-  <div class="discover-card-grid" style="display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:260px;gap:20px;padding:0 5vw 50px;">
-    <div class="discover-card tall" style="grid-row:span 2;">
-      <img src="{% static 'core/img/Nairobi.jpg' %}" alt="Nairobi">
-      <div class="discover-card-content">
-        <h3>Flights to Nairobi</h3>
-        <div class="discover-price">from <strong>$393</strong></div>
-        <div class="discover-details">Return, from Kenya, Sep 2025</div>
-      </div>
-    </div>
-    <div class="discover-card">
-      <img src="{% static 'core/img/Accra.jpg' %}" alt="Accra">
-      <div class="discover-card-content">
-        <h3>Flights to Accra</h3>
-        <div class="discover-price">from <strong>$400</strong></div>
-        <div class="discover-details">Return, from Ghana, Oct 2025</div>
-      </div>
-    </div>
-    <div class="discover-card">
-      <img src="{% static 'core/img/KIGALI.jpg' %}" alt="Kigali">
-      <div class="discover-card-content">
-        <h3>Flights to Kigali</h3>
-        <div class="discover-price">from <strong>$370</strong></div>
-        <div class="discover-details">Return, from Nigeria, Nov 2025</div>
-      </div>
-    </div>
-    <div class="discover-card">
-      <img src="{% static 'core/img/Abidjan.png' %}" alt="Abidjan">
-      <div class="discover-card-content">
-        <h3>Flights to Abidjan</h3>
-        <div class="discover-price">from <strong>$420</strong></div>
-        <div class="discover-details">Return, from Senegal, Sep 2025</div>
-      </div>
-    </div>
-    <div class="discover-card">
-      <img src="{% static 'core/img/lagos.jpg' %}" alt="Lagos">
-      <div class="discover-card-content">
-        <h3>Flights to Lagos</h3>
-        <div class="discover-price">from <strong>$410</strong></div>
-        <div class="discover-details">Return, from Ghana, Oct 2025</div>
-      </div>
-    </div>
-    <div class="discover-card">
-      <img src="{% static 'core/img/Cairo.jpg' %}" alt="Cairo">
-      <div class="discover-card-content">
-        <h3>Flights to Cairo</h3>
-        <div class="discover-price">from <strong>$510</strong></div>
-        <div class="discover-details">Return, from Nigeria, Dec 2025</div>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="gallery-section">
-  <h2>Gallery</h2>
-  <div class="subtitle" style="color: #444; font-size: 1.1rem; margin-bottom: 28px;">
-    A glimpse into the beauty of Africa
-  </div>
-  <div class="gallery-grid">
-    <div class="gallery-card">
-      <img src="{% static 'core/img/Marrakech.jpg' %}" alt="Marrakech">
-      <div class="overlay">Marrakech</div>
-    </div>
-    <div class="gallery-card">
-      <img src="{% static 'core/img/mauritius 1.jpg' %}" alt="Mauritius Beach 1">
-      <div class="overlay">Mauritius Beach 1</div>
-    </div>
-    <div class="gallery-card">
-      <img src="{% static 'core/img/mauritius 2.jpg' %}" alt="Mauritius Beach 2">
-      <div class="overlay">Mauritius Beach 2</div>
-    </div>
-    <div class="gallery-card">
-      <img src="{% static 'core/img/Cairo.jpg' %}" alt="Cairo">
-      <div class="overlay">Cairo</div>
-    </div>
-    <div class="gallery-card">
-      <img src="{% static 'core/img/Accra 2.jpg' %}" alt="Accra">
-      <div class="overlay">Accra</div>
-    </div>
-  </div>
-</section>
-<section class="mobile-optimized-section">
-  <div class="mobile-optimized-content">
-    <div class="mobile-optimized-text" style="align-items: flex-start; text-align: left;">
-      <h2>Optimized for Mobile</h2>
-      <div class="subtitle" style="color:#444; font-size:1.1rem; margin-bottom:22px;">
-        Enjoy a seamless experience on any device, anywhere you go.
-      </div>
-      <button class="cta-btn" style="margin-left:0;" onclick="window.open('https://flight-flow.com', '_blank')">Try on your phone</button>
-    </div>
-    <div class="mobile-optimized-image">
-      <img src="{% static 'core/img/mobile-preview.png' %}" alt="Mobile Preview" style="max-width:180px; width:100%; border-radius:16px; box-shadow:0 4px 16px rgba(2,138,158,0.10);">
-    </div>
-  </div>
-</section>
-<section class="cta-explore-section cta-explore-fullwidth">
-  <div class="cta-explore-content">
-    <h2>Ready to Explore Africa?</h2>
-    <div class="subtitle" style="color:#fff; font-size:1.1rem; margin-bottom:22px;">
-      Start your journey with Flight Flow.
-    </div>
-    <a href="{% url 'login' %}" class="cta-btn cta-btn-white">Login</a>
-  </div>
-</section>
 
-<style>
-.cta-explore-fullwidth {
-  border-radius: 0 !important;
-  width: 100vw;
-  max-width: 100vw;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  position: relative;
-  margin-top: 48px;
-  margin-bottom: 40px; /* Space above the footer */
-  padding-left: 0;
-  padding-right: 0;
-}
-@media (max-width: 700px) {
-  .cta-explore-fullwidth {
-    margin-top: 32px;
-    margin-bottom: 24px;
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
-</style>
-<footer class="site-footer">
-  <div class="footer-content">
-    <div class="footer-contacts">
-      <div>
-        <strong>General Enquiries:</strong>
-        <a href="mailto:haja@flight-flow.co">haja@flight-flow.co</a>
+    <section class="cards">
+      <div class="card">
+        <img src="{% static 'core/img/account-benefits.png' %}" alt="Account benefits">
+        <h2>New around here? Fix that</h2>
+        <p>Create an account and get instant access to your bookings, trip history and more.</p>
+        <button class="btn-blue" onclick="window.location.href='{% url 'login' %}'">Create account</button>
       </div>
-      <div>
-        <strong>Investor Relations:</strong>
-        <a href="mailto:invest@flight-flow.co">invest@flight-flow.co</a>
+      <div class="card">
+        <img src="{% static 'core/img/signup-newsletter.png' %}" alt="Sign up now">
+        <h2>Don't get left behind. Sign up now</h2>
+        <p>Get our exclusive deals and travel updates. No FOMO here.</p>
+        <input type="text" placeholder="Enter first name">
+        <input type="email" placeholder="Enter your email">
+        <button class="btn-blue">Sign me up</button>
+        <small>No spam, promise</small>
       </div>
-    </div>
-    <div class="footer-social">
-      <span>Follow us:</span>
-      <a href="https://www.linkedin.com/company/flightflowafrica/" title="LinkedIn" style="margin:0 8px;" target="_blank" rel="noopener"><i class="bi bi-linkedin"></i></a>
-      <a href="https://www.instagram.com/flightflowafrica?igsh=aXBwem85bGJzNjZm" title="Instagram" style="margin:0 8px;" target="_blank" rel="noopener"><i class="bi bi-instagram"></i></a>
-      <a href="#" title="Twitter" style="margin:0 8px;"><i class="bi bi-twitter-x"></i></a>
-    </div>
-    <div class="footer-copy">
-      &copy; {{ now|date:"Y" }} Flight-Flow. All rights reserved.
-    </div>
-  </div>
-</footer>
+    </section>
 
-<!-- Mobile Nav Slider -->
-<div class="mobile-nav-slider" id="mobileNavSlider">
-    <span class="close-mobile-nav" id="closeMobileNav" style="font-size:2em; color:#028A9E; cursor:pointer; display:block; margin-bottom:18px;">&times;</span>
-    <div class="mobile-nav-content">
-        <ul>
-            <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'visas' %}">Visas</a></li>
-            <li><a href="{% url 'flights' %}">Flights</a></li>
-            <li><a href="{% url 'Travel_planner' %}">Travel planner</a></li>
-            <li><a href="{% url 'about_us' %}">About Us</a></li>
-            <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
-            {% if not user.is_authenticated %}
-            <li><a href="{% url 'login' %}">Login</a></li>
-            {% endif %}
-            {% if user.is_authenticated %}
-            <li><a href="{% url 'profile' %}">Profile</a></li>
-            {% endif %}
-        </ul>
-    </div>
-</div>
+    <section class="download-app">
+      <div class="app-text">
+        <h2>Skip the wait, not the trip.<br>Get the app</h2>
+        <div class="app-buttons">
+          <button class="app-btn">App Store</button>
+          <button class="app-btn">Google Play</button>
+        </div>
+      </div>
+      <div class="app-image">
+        <img src="{% static 'core/img/mobile-preview.png' %}" alt="App preview">
+      </div>
+    </section>
+  </main>
 
-<div id="dummy-results" style="display:none; margin:2em auto; max-width:900px;">
-  <h2 style="color:#028A9E; text-align:center;">Flight Results</h2>
-  <div id="results-list">
-    <!-- Dummy results will appear here -->
-  </div>
-</div>
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const travellerBtn = document.getElementById('travellerBtn');
+    const travellerPopup = document.getElementById('travellerPopup');
+    const closeBtn = travellerPopup.querySelector('.close-btn');
+    const applyBtn = travellerPopup.querySelector('.apply-btn');
 
-<script>
-    // Slideshow functionality
-    document.addEventListener('DOMContentLoaded', function() {
-        const slides = document.querySelectorAll('.slide');
-        let currentSlide = 0;
-        setInterval(function() {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }, 4000); // Change image every 4 seconds
+    // Show/hide popup
+    travellerBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        travellerPopup.style.display = travellerPopup.style.display === 'block' ? 'none' : 'block';
     });
 
-function setTripType(label, value) {
-    document.getElementById('tripTypeBtn').textContent = label;
-    document.getElementById('tripTypeInput').value = value;
-}
+    // Close popup
+    closeBtn.addEventListener('click', function() {
+        travellerPopup.style.display = 'none';
+    });
 
-function setClass(label, value) {
-    document.getElementById('classBtn').textContent = label;
-    document.getElementById('classInput').value = value;
-}
+    // Apply button (you can add logic to update the button text)
+    applyBtn.addEventListener('click', function() {
+        travellerPopup.style.display = 'none';
+    });
 
-let passengerCount = 1;
-
-function updatePassengerBtn() {
-    const btn = document.getElementById('passengerBtn');
-    btn.textContent = `Passengers${passengerCount > 1 ? ' (' + passengerCount + ')' : ''}`;
-    document.getElementById('passengerMenuTitle').textContent = `Passengers (${passengerCount})`;
-}
-
-function addPassenger() {
-    passengerCount++;
-    createPassengerAccordion(passengerCount);
-    document.getElementById('passenger_count').value = passengerCount;
-    updatePassengerBtn();
-    // Remove focus from the dropdown button to prevent blue highlight
-    document.getElementById('passengerBtn').blur();
-}
-
-function createPassengerAccordion(num) {
-    const passengerAccordion = document.getElementById('passengerAccordion');
-    const newAccordion = document.createElement('div');
-    newAccordion.className = 'accordion-item mb-2';
-    newAccordion.id = `passengerItem${num}`;
-    newAccordion.innerHTML = `
-      <h2 class="accordion-header d-flex align-items-center" id="heading${num}">
-        <button class="accordion-button collapsed py-2 px-3 flex-grow-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${num}" aria-expanded="false" aria-controls="collapse${num}">
-          Passenger ${num}
-        </button>
-        ${num > 1 ? `
-        <span title="Remove" onclick="removePassenger(${num})" style="cursor:pointer; margin-left:4px; opacity:0.5; font-size:0.60em; line-height:1;">
-          &#10005;
-        </span>
-        ` : ''}
-      </h2>
-      <div id="collapse${num}" class="accordion-collapse collapse" aria-labelledby="heading${num}" data-bs-parent="#passengerAccordion">
-        <div class="accordion-body p-2">
-          <label class="form-label mb-1">Type</label>
-          <select class="form-select mb-2" onchange="updatePassengerType(${num}, this.value)">
-            <option value="adult" selected>Adult</option>
-            <option value="child">Child</option>
-            <option value="infant">Infant</option>
-          </select>
-          <label class="form-label mb-1">Age Range</label>
-          <select class="form-select" id="passenger${num}_age">
-            <option value="18-64">18-64</option>
-            <option value="65+">65+</option>
-          </select>
-          <input type="hidden" name="passenger${num}_type" id="passenger${num}_type" value="adult">
-          <input type="hidden" name="passenger${num}_age_value" id="passenger${num}_age_value" value="18-64">
-        </div>
-      </div>
-    `;
-    passengerAccordion.appendChild(newAccordion);
-}
-
-function closePassengerDropdown() {
-    // Close the dropdown using Bootstrap's dropdown API
-    const dropdown = bootstrap.Dropdown.getOrCreateInstance(document.getElementById('passengerBtn'));
-    dropdown.hide();
-    updatePassengerBtn();
-}
-
-// On page load, create the first passenger and update button
-document.addEventListener('DOMContentLoaded', function() {
-    if (passengerCount === 1 && document.getElementById('passengerAccordion').children.length === 0) {
-        createPassengerAccordion(1);
-    }
-    updatePassengerBtn();
-});
-
-function removePassenger(num) {
-    const item = document.getElementById(`passengerItem${num}`);
-    if (item) {
-        item.remove();
-        passengerCount--;
-        document.getElementById('passenger_count').value = passengerCount;
-        updatePassengerBtn();
-        // Re-label remaining passengers
-        relabelPassengers();
-    }
-}
-
-function relabelPassengers() {
-    const items = document.querySelectorAll('#passengerAccordion .accordion-item');
-    items.forEach((item, idx) => {
-        const n = idx + 1;
-        item.id = `passengerItem${n}`;
-        item.querySelector('.accordion-button').textContent = `Passenger ${n}`;
-        item.querySelector('.accordion-header').id = `heading${n}`;
-        item.querySelector('.accordion-button').setAttribute('data-bs-target', `#collapse${n}`);
-        item.querySelector('.accordion-button').setAttribute('aria-controls', `collapse${n}`);
-        item.querySelector('.accordion-collapse').id = `collapse${n}`;
-        item.querySelector('.accordion-collapse').setAttribute('aria-labelledby', `heading${n}`);
-        // Show remove icon only for passengers > 1
-        const removeIcon = item.querySelector('span[title="Remove"]');
-        if (removeIcon) {
-            removeIcon.style.display = n > 1 ? '' : 'none';
-            removeIcon.setAttribute('onclick', `removePassenger(${n})`);
+    // Hide popup when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!travellerPopup.contains(e.target) && e.target !== travellerBtn) {
+            travellerPopup.style.display = 'none';
         }
     });
-}
 
-/* Mobile Navigation */
-document.addEventListener('DOMContentLoaded', function() {
-    var mobileNavToggle = document.getElementById('mobileNavToggle');
-    var mobileNavSlider = document.getElementById('mobileNavSlider');
-    var closeMobileNav = document.getElementById('closeMobileNav');
-    if (mobileNavToggle && mobileNavSlider && closeMobileNav) {
-        mobileNavToggle.addEventListener('click', function() {
-            mobileNavSlider.classList.add('open');
-        });
-        closeMobileNav.addEventListener('click', function() {
-            mobileNavSlider.classList.remove('open');
-        });
-        // Optional: close slider when clicking outside
-        mobileNavSlider.addEventListener('click', function(e) {
-            if (e.target === mobileNavSlider) {
-                mobileNavSlider.classList.remove('open');
+    // Number selection logic
+    document.querySelectorAll('.traveller-row .numbers').forEach(function(group) {
+        group.addEventListener('click', function(e) {
+            if (e.target.tagName === 'BUTTON') {
+                Array.from(group.children).forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
             }
         });
-    }
-});
-
-document.querySelector('.flight-search-form form').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    // Dummy data array
-    const dummyFlights = [
-        {
-            airline: "Air Peace",
-            from: "Lagos",
-            to: "Accra",
-            depart: "2025-09-10 09:00",
-            arrive: "2025-09-10 10:15",
-            price: "$220"
-        },
-        {
-            airline: "Ethiopian Airlines",
-            from: "Accra",
-            to: "Nairobi",
-            depart: "2025-09-12 13:00",
-            arrive: "2025-09-12 17:30",
-            price: "$350"
-        },
-        {
-            airline: "Kenya Airways",
-            from: "Nairobi",
-            to: "Cape Town",
-            depart: "2025-09-15 08:00",
-            arrive: "2025-09-15 13:45",
-            price: "$480"
-        }
-    ];
-
-    // Build HTML for results
-    let html = '';
-    dummyFlights.forEach(flight => {
-        html += `
-        <div style="background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(2,138,158,0.10);padding:1.2em 1.5em;margin-bottom:1.2em;display:flex;align-items:center;gap:1.5em;">
-            <div style="flex:1;">
-                <div style="font-weight:600;color:#028A9E;font-size:1.1em;">
-                    ${flight.from} <i class="ri-arrow-right-line"></i> ${flight.to}
-                </div>
-                <div style="font-size:0.98em;color:#333;">
-                    ${flight.depart} &rarr; ${flight.arrive}
-                </div>
-                <div style="font-size:0.98em;color:#666;">
-                    Airline: ${flight.airline}
-                </div>
-            </div>
-            <div style="font-weight:700;color:#009688;font-size:1.15em;">
-                ${flight.price}
-            </div>
-        </div>
-        `;
     });
-
-    document.getElementById('results-list').innerHTML = html;
-    document.getElementById('dummy-results').style.display = 'block';
-
-    // Optionally scroll to results
-    document.getElementById('dummy-results').scrollIntoView({behavior: "smooth"});
 });
-    </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</script>
 </body>
 </html>
